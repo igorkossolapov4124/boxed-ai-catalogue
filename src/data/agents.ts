@@ -10,6 +10,18 @@ export interface Agent {
   rating: number;
   reviewCount: number;
   image: string;
+  icon: string;
+  valueProposition: string;
+  problemStatement: string;
+  solution: string;
+  result: string;
+  businessHighlights: {
+    icon: string;
+    text: string;
+  }[];
+  integrations: string[];
+  trustIndicator: string;
+  caseExample: string;
 }
 
 export const categories = [
@@ -41,7 +53,20 @@ export const agents: Agent[] = [
     tags: ["automation", "lead-generation", "CRM"],
     rating: 4.8,
     reviewCount: 127,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "🎯",
+    valueProposition: "Close deals 30% faster. Save 40+ hours per sales rep monthly.",
+    problemStatement: "Sales teams waste countless hours on manual lead qualification and struggle with inconsistent closing techniques.",
+    solution: "Our AI agent automates lead scoring, analyzes prospect behavior, and generates personalized closing scripts in real-time.",
+    result: "20-30% increase in revenue within 3 months with proven ROI.",
+    businessHighlights: [
+      { icon: "⏱", text: "Saves 40+ hours/month per rep" },
+      { icon: "📈", text: "+30% faster closing cycle" },
+      { icon: "💰", text: "ROI proven within 90 days" }
+    ],
+    integrations: ["Salesforce", "HubSpot", "Pipedrive", "Slack"],
+    trustIndicator: "Trusted by 120+ businesses worldwide",
+    caseExample: "B2B SaaS company → 27% more closed deals in Q2"
   },
   {
     id: 2,
@@ -60,7 +85,20 @@ export const agents: Agent[] = [
     tags: ["recruitment", "HR", "automation"],
     rating: 4.9,
     reviewCount: 89,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "👥",
+    valueProposition: "Reduce hiring time by 60%. Screen 10x more candidates efficiently.",
+    problemStatement: "HR teams spend weeks manually reviewing resumes and conducting initial screenings, leading to delayed hires and missed talent.",
+    solution: "Our AI agent automatically screens candidates, conducts preliminary interviews, and ranks applicants based on your criteria.",
+    result: "60% faster time-to-hire with 3x higher candidate satisfaction scores.",
+    businessHighlights: [
+      { icon: "⏰", text: "60% faster hiring process" },
+      { icon: "📊", text: "10x more candidates screened" },
+      { icon: "🎯", text: "85% better candidate match rate" }
+    ],
+    integrations: ["LinkedIn", "Indeed", "BambooHR", "Workday"],
+    trustIndicator: "Used by 200+ HR teams globally",
+    caseExample: "Tech startup → Filled 15 positions in 3 weeks vs. 3 months"
   },
   {
     id: 3,
@@ -79,7 +117,20 @@ export const agents: Agent[] = [
     tags: ["healthcare", "medical", "triage"],
     rating: 4.7,
     reviewCount: 156,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "🏥",
+    valueProposition: "24/7 patient support. Reduce wait times by 40%.",
+    problemStatement: "Healthcare facilities struggle with patient triage bottlenecks and appointment scheduling inefficiencies, leading to longer wait times.",
+    solution: "AI-powered triage system that assesses patient urgency, schedules appointments intelligently, and provides preliminary consultations.",
+    result: "40% reduction in wait times and 25% increase in patient satisfaction.",
+    businessHighlights: [
+      { icon: "🕐", text: "24/7 availability" },
+      { icon: "📉", text: "40% shorter wait times" },
+      { icon: "🔒", text: "HIPAA compliant" }
+    ],
+    integrations: ["Epic", "Cerner", "Allscripts", "Athenahealth"],
+    trustIndicator: "Trusted by 50+ healthcare facilities",
+    caseExample: "Regional clinic → 40% fewer no-shows, $200K annual savings"
   },
   {
     id: 4,
@@ -98,7 +149,20 @@ export const agents: Agent[] = [
     tags: ["finance", "budgeting", "investment"],
     rating: 4.6,
     reviewCount: 203,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "💼",
+    valueProposition: "Optimize budgets automatically. Save 15-25% on expenses.",
+    problemStatement: "Finance teams waste hours on manual expense categorization and struggle to identify cost-saving opportunities across departments.",
+    solution: "AI-driven financial analysis that automatically categorizes expenses, identifies savings opportunities, and optimizes budget allocation.",
+    result: "15-25% cost reduction with automated financial insights and recommendations.",
+    businessHighlights: [
+      { icon: "💰", text: "15-25% cost reduction" },
+      { icon: "📈", text: "Real-time budget insights" },
+      { icon: "🎯", text: "Automated tax optimization" }
+    ],
+    integrations: ["QuickBooks", "Xero", "SAP", "Oracle Financials"],
+    trustIndicator: "Manages $500M+ in corporate budgets",
+    caseExample: "Manufacturing company → $2.5M saved annually"
   },
   {
     id: 5,
@@ -117,7 +181,20 @@ export const agents: Agent[] = [
     tags: ["support", "multilingual", "automation"],
     rating: 4.8,
     reviewCount: 267,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "🎧",
+    valueProposition: "24/7 support coverage. Resolve 80% of tickets instantly.",
+    problemStatement: "Support teams struggle with high ticket volumes, inconsistent response times, and limited multilingual capabilities.",
+    solution: "AI-powered support agent that handles inquiries 24/7, provides instant responses, and escalates complex issues appropriately.",
+    result: "80% faster resolution times with 90% customer satisfaction rate.",
+    businessHighlights: [
+      { icon: "⚡", text: "80% instant ticket resolution" },
+      { icon: "🌍", text: "50+ language support" },
+      { icon: "📞", text: "24/7 availability" }
+    ],
+    integrations: ["Zendesk", "Freshdesk", "Intercom", "ServiceNow"],
+    trustIndicator: "Handles 1M+ support tickets monthly",
+    caseExample: "E-commerce platform → 75% reduction in support costs"
   },
   {
     id: 6,
@@ -136,7 +213,20 @@ export const agents: Agent[] = [
     tags: ["marketing", "content", "social-media"],
     rating: 4.7,
     reviewCount: 194,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "📢",
+    valueProposition: "Generate 10x more content. Increase engagement by 150%.",
+    problemStatement: "Marketing teams struggle to create consistent, high-quality content at scale while maintaining brand voice across platforms.",
+    solution: "AI content generator that creates on-brand marketing materials, optimizes campaigns, and provides real-time performance insights.",
+    result: "150% increase in engagement rates with 5x faster content production.",
+    businessHighlights: [
+      { icon: "🚀", text: "10x faster content creation" },
+      { icon: "📊", text: "150% higher engagement" },
+      { icon: "💡", text: "AI-powered insights" }
+    ],
+    integrations: ["Meta Ads", "Google Ads", "LinkedIn", "Twitter"],
+    trustIndicator: "Powers 300+ marketing campaigns",
+    caseExample: "SaaS startup → 400% increase in qualified leads"
   },
   {
     id: 7,
@@ -155,7 +245,20 @@ export const agents: Agent[] = [
     tags: ["legal", "research", "contracts"],
     rating: 4.9,
     reviewCount: 78,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "⚖️",
+    valueProposition: "Research 90% faster. Save 50+ hours per case.",
+    problemStatement: "Legal professionals spend excessive time on document review and case research, delaying client deliverables and increasing costs.",
+    solution: "AI-powered legal research that analyzes contracts, finds relevant precedents, and summarizes complex legal documents instantly.",
+    result: "90% faster research with 95% accuracy in precedent identification.",
+    businessHighlights: [
+      { icon: "⚡", text: "90% faster research" },
+      { icon: "🎯", text: "95% accuracy rate" },
+      { icon: "📚", text: "Access to 50M+ cases" }
+    ],
+    integrations: ["Westlaw", "LexisNexis", "Bloomberg Law", "Clio"],
+    trustIndicator: "Used by 100+ law firms globally",
+    caseExample: "Corporate law firm → 60% reduction in research time"
   },
   {
     id: 8,
@@ -174,7 +277,20 @@ export const agents: Agent[] = [
     tags: ["education", "tutoring", "personalized"],
     rating: 4.8,
     reviewCount: 312,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "🎓",
+    valueProposition: "Personalized learning at scale. Improve grades by 35%.",
+    problemStatement: "Educational institutions struggle to provide personalized learning experiences for diverse student needs and learning paces.",
+    solution: "AI tutor that adapts to individual learning styles, provides personalized content, and tracks progress in real-time.",
+    result: "35% improvement in student grades with 90% engagement rate.",
+    businessHighlights: [
+      { icon: "📈", text: "35% better grades" },
+      { icon: "👥", text: "Scales to 1000+ students" },
+      { icon: "🎯", text: "90% engagement rate" }
+    ],
+    integrations: ["Canvas", "Blackboard", "Moodle", "Google Classroom"],
+    trustIndicator: "Educating 50,000+ students worldwide",
+    caseExample: "University → 40% reduction in dropout rates"
   },
   {
     id: 9,
@@ -193,7 +309,20 @@ export const agents: Agent[] = [
     tags: ["analytics", "data-science", "BI"],
     rating: 4.7,
     reviewCount: 145,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "📊",
+    valueProposition: "Turn data into decisions. Generate insights 10x faster.",
+    problemStatement: "Companies struggle to extract meaningful insights from vast data sets, leading to delayed decision-making and missed opportunities.",
+    solution: "AI analytics engine that processes complex data, identifies patterns, and generates actionable business insights automatically.",
+    result: "10x faster data analysis with 95% accuracy in predictive modeling.",
+    businessHighlights: [
+      { icon: "⚡", text: "10x faster analysis" },
+      { icon: "🎯", text: "95% prediction accuracy" },
+      { icon: "📈", text: "Real-time insights" }
+    ],
+    integrations: ["Tableau", "Power BI", "Snowflake", "AWS"],
+    trustIndicator: "Processes 100TB+ data monthly",
+    caseExample: "Retail chain → 25% increase in revenue forecasting accuracy"
   },
   {
     id: 10,
@@ -212,7 +341,20 @@ export const agents: Agent[] = [
     tags: ["social-media", "scheduling", "engagement"],
     rating: 4.6,
     reviewCount: 225,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "📱",
+    valueProposition: "Automate social media. Grow followers by 200%.",
+    problemStatement: "Social media management is time-consuming with inconsistent posting schedules and poor engagement tracking across platforms.",
+    solution: "AI social media manager that creates content, schedules posts optimally, and analyzes engagement patterns for growth.",
+    result: "200% follower growth with 3x higher engagement rates.",
+    businessHighlights: [
+      { icon: "📈", text: "200% follower growth" },
+      { icon: "🎯", text: "3x higher engagement" },
+      { icon: "⏰", text: "Saves 20 hours/week" }
+    ],
+    integrations: ["Facebook", "Instagram", "Twitter", "LinkedIn"],
+    trustIndicator: "Manages 500+ social accounts",
+    caseExample: "E-commerce brand → 300% increase in social sales"
   },
   {
     id: 11,
@@ -231,7 +373,20 @@ export const agents: Agent[] = [
     tags: ["QA", "testing", "automation"],
     rating: 4.8,
     reviewCount: 167,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "🔍",
+    valueProposition: "Catch bugs 95% faster. Reduce testing time by 70%.",
+    problemStatement: "Software teams spend excessive time on manual testing, leading to delayed releases and undetected bugs in production.",
+    solution: "AI-powered QA agent that automates testing workflows, detects bugs early, and ensures consistent quality standards.",
+    result: "70% reduction in testing time with 95% bug detection accuracy.",
+    businessHighlights: [
+      { icon: "🐛", text: "95% bug detection rate" },
+      { icon: "⚡", text: "70% faster testing" },
+      { icon: "🛡️", text: "Zero critical bugs" }
+    ],
+    integrations: ["Jenkins", "GitLab", "Jira", "Selenium"],
+    trustIndicator: "Tests 1000+ applications monthly",
+    caseExample: "Software company → 80% reduction in production bugs"
   },
   {
     id: 12,
@@ -250,6 +405,19 @@ export const agents: Agent[] = [
     tags: ["inventory", "supply-chain", "forecasting"],
     rating: 4.7,
     reviewCount: 134,
-    image: "/api/placeholder/300/200"
+    image: "/api/placeholder/300/200",
+    icon: "📦",
+    valueProposition: "Reduce inventory costs by 30%. Prevent 99% of stockouts.",
+    problemStatement: "Businesses struggle with inventory management, leading to excess stock, stockouts, and inefficient supply chain operations.",
+    solution: "AI inventory optimizer that predicts demand, automates reordering, and optimizes stock levels across all locations.",
+    result: "30% inventory cost reduction with 99% stockout prevention.",
+    businessHighlights: [
+      { icon: "💰", text: "30% cost reduction" },
+      { icon: "📈", text: "99% stockout prevention" },
+      { icon: "🎯", text: "Perfect demand forecasting" }
+    ],
+    integrations: ["SAP", "Oracle SCM", "NetSuite", "WMS"],
+    trustIndicator: "Optimizes $2B+ inventory value",
+    caseExample: "Retail chain → $5M annual savings in inventory costs"
   }
 ];
