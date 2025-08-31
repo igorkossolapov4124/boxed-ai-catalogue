@@ -14,7 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import { agents, categories } from '@/data/agents';
-import MediaCarousel from '@/components/MediaCarousel';
+import MediaPreview from '@/components/MediaPreview';
 import ReviewsSection from '@/components/ReviewsSection';
 import ImplementationTimeline from '@/components/ImplementationTimeline';
 import TechStackDisplay from '@/components/TechStackDisplay';
@@ -81,6 +81,9 @@ const AgentDetail = () => {
                   <p className="font-medium text-foreground">{agent.result}</p>
                 </div>
               </div>
+
+              {/* Media Preview */}
+              <MediaPreview media={agent.media} />
 
               {/* Key Benefits */}
               <div className="mb-8">
@@ -179,9 +182,6 @@ const AgentDetail = () => {
 
         {/* Additional Sections */}
         <div className="max-w-6xl mx-auto mt-12 space-y-8">
-          {/* Media Carousel */}
-          <MediaCarousel media={agent.media} />
-          
           {/* Tech Stack */}
           <TechStackDisplay techStack={agent.techStack} />
           
