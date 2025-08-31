@@ -49,150 +49,130 @@ const AgentDetail = () => {
           </Link>
         </Button>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Header */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <Badge variant="secondary">{category?.name}</Badge>
+        {/* B2B Product Card */}
+        <div className="max-w-4xl mx-auto">
+          <Card className="overflow-hidden">
+            <CardContent className="p-8">
+              {/* Top Section */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Badge variant="secondary">{category?.name}</Badge>
+                </div>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
                   <span className="font-medium">{agent.rating}</span>
                   <span className="ml-1">({agent.reviewCount} reviews)</span>
                 </div>
               </div>
-              
-              <h1 className="text-3xl lg:text-4xl font-bold mb-4">{agent.name}</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {agent.description}
-              </p>
-            </div>
 
-            {/* Agent Preview */}
-            <Card>
-              <CardContent className="p-8">
-                <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center mb-6">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🤖</div>
-                    <p className="text-muted-foreground">Agent Preview</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Description */}
-            <Card>
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-semibold mb-4">About This Agent</h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {agent.fullDescription}
+              {/* Agent Info */}
+              <div className="mb-8">
+                <h1 className="text-3xl lg:text-4xl font-bold mb-3">{agent.name}</h1>
+                <p className="text-xl font-semibold text-primary mb-4">
+                  {agent.valueProposition}
                 </p>
-                
-                <Separator className="my-6" />
-                
-                <h3 className="text-xl font-semibold mb-4">Key Features</h3>
-                <div className="grid md:grid-cols-2 gap-3">
-                  {agent.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{feature}</span>
+                <div className="space-y-2 text-muted-foreground">
+                  <p>{agent.problemStatement}</p>
+                  <p>{agent.solution}</p>
+                  <p className="font-medium text-foreground">{agent.result}</p>
+                </div>
+              </div>
+
+              {/* Key Benefits */}
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-4">Key Benefits</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {agent.businessHighlights.map((highlight, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <span className="text-2xl">{highlight.icon}</span>
+                      <span className="text-foreground font-medium">{highlight.text}</span>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Tags */}
-            <Card>
-              <CardContent className="p-8">
-                <h3 className="text-xl font-semibold mb-4">Technologies & Tags</h3>
+              {/* Integrations */}
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-4">Integrates with</h3>
+                <div className="flex flex-wrap gap-2">
+                  {agent.integrations.map((integration) => (
+                    <Badge key={integration} variant="outline" className="text-sm py-1 px-3">
+                      {integration}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-4">Use Cases</h3>
                 <div className="flex flex-wrap gap-2">
                   {agent.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
+                    <Badge key={tag} variant="secondary">
                       {tag}
                     </Badge>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Pricing Card */}
-            <Card className="sticky top-8">
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <div className="text-sm text-muted-foreground mb-2">Starting from</div>
-                  <div className="text-3xl font-bold text-primary mb-4">
-                    ${agent.price}
-                  </div>
-                  <Button size="lg" className="w-full" variant="gradient">
-                    Request Agent
-                  </Button>
-                </div>
-
-                <Separator className="my-6" />
-
-                <div className="space-y-4">
+              {/* Enterprise Features */}
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-4">Enterprise Features</h3>
+                <div className="grid md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-3">
                     <Zap className="w-5 h-5 text-accent" />
-                    <span className="text-sm">Quick deployment</span>
+                    <span>Quick deployment (within 24h)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="w-5 h-5 text-accent" />
-                    <span className="text-sm">Enterprise security</span>
+                    <span>Enterprise-grade security</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MessageCircle className="w-5 h-5 text-accent" />
-                    <span className="text-sm">24/7 support included</span>
+                    <span>24/7 support included</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Bot className="w-5 h-5 text-accent" />
-                    <span className="text-sm">Regular updates</span>
+                    <span>Regular updates & SLA guarantee</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pricing & CTA Section */}
+              <div className="grid lg:grid-cols-2 gap-8 pt-6 border-t border-border">
+                {/* Pricing */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Pricing</h3>
+                  <div className="mb-4">
+                    <div className="flex items-baseline gap-2 mb-2">
+                      <span className="text-sm text-muted-foreground">Starting from</span>
+                      <span className="text-3xl font-bold text-primary">${agent.price}</span>
+                      <span className="text-muted-foreground">/month</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Flat monthly fee. Cancel anytime.</p>
+                  </div>
+
+                  {/* Trust Indicators */}
+                  <div className="space-y-2">
+                    <p className="font-medium text-foreground">{agent.trustIndicator}</p>
+                    <p className="text-sm text-muted-foreground italic">{agent.caseExample}</p>
                   </div>
                 </div>
 
-                <Separator className="my-6" />
-
-                <div className="text-center">
+                {/* Call to Action */}
+                <div className="flex flex-col justify-center">
+                  <Button size="lg" className="w-full mb-4" variant="gradient">
+                    Deploy Agent
+                  </Button>
                   <Button variant="outline" className="w-full">
                     Contact Specialist
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Stats Card */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Agent Statistics</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Rating</span>
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                      <span className="font-medium">{agent.rating}</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Reviews</span>
-                    <span className="font-medium">{agent.reviewCount}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Category</span>
-                    <span className="font-medium">{category?.name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Starting Price</span>
-                    <span className="font-medium">${agent.price}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
+
       </div>
     </div>
   );
