@@ -22,6 +22,30 @@ export interface Agent {
   integrations: string[];
   trustIndicator: string;
   caseExample: string;
+  media?: {
+    images: string[];
+    videos: string[];
+    demos: { title: string; url: string; thumbnail: string }[];
+  };
+  reviews?: {
+    id: number;
+    author: string;
+    company: string;
+    rating: number;
+    comment: string;
+    date: string;
+    verified: boolean;
+  }[];
+  implementation?: {
+    timeline: string;
+    phases: { name: string; duration: string; description: string }[];
+    support: string;
+  };
+  techStack?: {
+    primary: string[];
+    integrations: string[];
+    infrastructure: string[];
+  };
 }
 
 export const categories = [
@@ -66,7 +90,66 @@ export const agents: Agent[] = [
     ],
     integrations: ["Salesforce", "HubSpot", "Pipedrive", "Slack"],
     trustIndicator: "Trusted by 120+ businesses worldwide",
-    caseExample: "B2B SaaS company → 27% more closed deals in Q2"
+    caseExample: "B2B SaaS company → 27% more closed deals in Q2",
+    media: {
+      images: [
+        "/api/placeholder/800/450",
+        "/api/placeholder/800/450", 
+        "/api/placeholder/800/450"
+      ],
+      videos: [
+        "/api/placeholder/video/demo1.mp4",
+        "/api/placeholder/video/demo2.mp4"
+      ],
+      demos: [
+        { title: "Lead Qualification Demo", url: "/api/placeholder/video/qualification.mp4", thumbnail: "/api/placeholder/400/225" },
+        { title: "Script Generation Walkthrough", url: "/api/placeholder/video/scripts.mp4", thumbnail: "/api/placeholder/400/225" }
+      ]
+    },
+    reviews: [
+      {
+        id: 1,
+        author: "Sarah Johnson",
+        company: "TechFlow Solutions",
+        rating: 5,
+        comment: "SalesAI Closer transformed our sales process. We're closing deals 40% faster and our reps are much more productive.",
+        date: "2024-01-15",
+        verified: true
+      },
+      {
+        id: 2,
+        author: "Mike Chen",
+        company: "Global Sales Corp",
+        rating: 5,
+        comment: "The personalized scripts are incredibly effective. Our conversion rate increased by 35% in just two months.",
+        date: "2024-01-08",
+        verified: true
+      },
+      {
+        id: 3,
+        author: "Lisa Rodriguez",
+        company: "StartupX",
+        rating: 4,
+        comment: "Great tool for scaling our sales operations. The lead scoring is very accurate and saves us tons of time.",
+        date: "2023-12-22",
+        verified: true
+      }
+    ],
+    implementation: {
+      timeline: "2-4 weeks full deployment",
+      phases: [
+        { name: "Setup & Integration", duration: "3-5 days", description: "Connect to existing CRM and configure initial settings" },
+        { name: "AI Training", duration: "5-7 days", description: "Train the AI on your sales data and processes" },
+        { name: "Team Training", duration: "2-3 days", description: "Train your sales team on the new AI tools" },
+        { name: "Full Launch", duration: "1-2 days", description: "Go live with full agent capabilities" }
+      ],
+      support: "24/7 implementation support with dedicated specialist"
+    },
+    techStack: {
+      primary: ["GPT-4", "Claude 3", "Gemini Pro"],
+      integrations: ["N8N", "Make.com", "Zapier"],
+      infrastructure: ["AWS", "Azure", "Google Cloud"]
+    }
   },
   {
     id: 2,

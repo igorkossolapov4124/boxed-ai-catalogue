@@ -14,6 +14,10 @@ import {
   Zap
 } from 'lucide-react';
 import { agents, categories } from '@/data/agents';
+import MediaCarousel from '@/components/MediaCarousel';
+import ReviewsSection from '@/components/ReviewsSection';
+import ImplementationTimeline from '@/components/ImplementationTimeline';
+import TechStackDisplay from '@/components/TechStackDisplay';
 
 const AgentDetail = () => {
   const { id } = useParams();
@@ -171,6 +175,25 @@ const AgentDetail = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Additional Sections */}
+        <div className="max-w-6xl mx-auto mt-12 space-y-8">
+          {/* Media Carousel */}
+          <MediaCarousel media={agent.media} />
+          
+          {/* Tech Stack */}
+          <TechStackDisplay techStack={agent.techStack} />
+          
+          {/* Implementation Timeline */}
+          <ImplementationTimeline implementation={agent.implementation} />
+          
+          {/* Reviews */}
+          <ReviewsSection 
+            reviews={agent.reviews} 
+            rating={agent.rating} 
+            reviewCount={agent.reviewCount} 
+          />
         </div>
 
       </div>
