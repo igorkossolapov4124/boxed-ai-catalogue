@@ -5,10 +5,12 @@ import { Menu, X, Bot } from 'lucide-react';
 import { useOnboarding } from '@/hooks/useOnboarding';
 import OnboardingModal from './OnboardingModal';
 import RoleSelectionModal from './RoleSelectionModal';
+import DeveloperLoginModal from './DeveloperLoginModal';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRoleSelectionOpen, setIsRoleSelectionOpen] = useState(false);
+  const [isDeveloperLoginOpen, setIsDeveloperLoginOpen] = useState(false);
   const location = useLocation();
   const onboarding = useOnboarding();
 
@@ -25,8 +27,7 @@ const Navigation = () => {
     if (role === 'entrepreneur') {
       onboarding.openModal();
     } else {
-      // Developer onboarding placeholder
-      console.log('Developer onboarding flow');
+      setIsDeveloperLoginOpen(true);
     }
   };
 
@@ -131,6 +132,12 @@ const Navigation = () => {
         prevStep={onboarding.prevStep}
         updateData={onboarding.updateData}
         simulateLoading={onboarding.simulateLoading}
+      />
+
+      {/* Developer Login Modal */}
+      <DeveloperLoginModal
+        isOpen={isDeveloperLoginOpen}
+        onClose={() => setIsDeveloperLoginOpen(false)}
       />
     </nav>
   );
