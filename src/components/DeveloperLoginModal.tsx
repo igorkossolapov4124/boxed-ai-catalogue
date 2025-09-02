@@ -62,15 +62,6 @@ export const DeveloperLoginModal = ({
                 </p>
               </div>
             </div>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
-            >
-              ✕
-            </Button>
           </div>
 
           {/* Content */}
