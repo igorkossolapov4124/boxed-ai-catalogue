@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, Bot } from 'lucide-react';
 import { useOnboarding } from '@/hooks/useOnboarding';
 import OnboardingModal from './OnboardingModal';
+import RoleSelectionModal from './RoleSelectionModal';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isRoleSelectionOpen, setIsRoleSelectionOpen] = useState(false);
   const location = useLocation();
   const onboarding = useOnboarding();
 
@@ -17,6 +19,16 @@ const Navigation = () => {
   ];
 
   const isActive = (href: string) => location.pathname === href;
+
+  const handleRoleSelection = (role: 'entrepreneur' | 'developer') => {
+    setIsRoleSelectionOpen(false);
+    if (role === 'entrepreneur') {
+      onboarding.openModal();
+    } else {
+      // Developer onboarding placeholder
+      console.log('Developer onboarding flow');
+    }
+  };
 
   return (
     <nav className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
@@ -49,7 +61,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => setIsRoleSelectionOpen(true)}>
               Sign In
             </Button>
             <Button variant="gradient" size="sm" onClick={onboarding.openModal}>
@@ -88,7 +100,7 @@ const Navigation = () => {
                 </Link>
               ))}
               <div className="flex space-x-3 pt-4">
-                <Button variant="outline" size="sm" className="flex-1">
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => setIsRoleSelectionOpen(true)}>
                   Sign In
                 </Button>
                 <Button size="sm" className="flex-1" variant="gradient" onClick={onboarding.openModal}>
@@ -99,6 +111,14 @@ const Navigation = () => {
           </div>
         )}
       </div>
+
+      {/* Role Selection Modal */}
+      <RoleSelectionModal
+        isOpen={isRoleSelectionOpen}
+        onClose={() => setIsRoleSelectionOpen(false)}
+        onSelectEntrepreneur={() => handleRoleSelection('entrepreneur')}
+        onSelectDeveloper={() => handleRoleSelection('developer')}
+      />
 
       {/* Onboarding Modal */}
       <OnboardingModal
