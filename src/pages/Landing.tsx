@@ -41,38 +41,39 @@ const Landing = () => {
       <section className="py-20 lg:py-32 gradient-hero-dark text-white relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl lg:text-7xl font-black leading-tight mb-8 neon-glow">
+            <div className="text-left max-w-2xl">
+              <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6">
                 Deploy AI Agents.{' '}
-                <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent font-extrabold">
                   Cut Costs by 30%.
                 </span>
               </h1>
-              <p className="text-2xl text-blue-100 mb-10 leading-relaxed font-medium">
-                Pre-built AI agents for Sales, HR, and Healthcare. Ready to launch in &lt;24h.
+              <p className="text-xl text-blue-100/90 mb-8 leading-relaxed font-medium">
+                Pre-built AI agents for Sales, HR, and Healthcare.<br />
+                Ready to launch in &lt;24h.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 mb-8 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <Button 
                   size="lg" 
-                  className="text-xl px-10 py-4 font-bold shadow-2xl hover:scale-105 transition-all duration-300" 
+                  className="text-lg px-8 py-3 font-semibold shadow-xl hover:scale-[1.02] transition-all duration-300" 
                   variant="gradient" 
                   onClick={scrollToFeaturedAgents}
                 >
                   Deploy Your First Agent
-                  <ArrowRight className="ml-3 w-6 h-6" />
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="text-xl px-10 py-4 font-semibold border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300" 
+                  className="text-lg px-8 py-3 font-medium border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 bg-transparent" 
                   asChild
                 >
                   <Link to="/marketplace">Explore Marketplace</Link>
                 </Button>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-3">
-                <Sparkles className="w-5 h-5 text-yellow-300" />
-                <p className="text-lg text-blue-100 font-medium">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-yellow-300 flex-shrink-0" />
+                <p className="text-base text-blue-100/80 font-medium">
                   Trusted by 120+ companies worldwide
                 </p>
               </div>

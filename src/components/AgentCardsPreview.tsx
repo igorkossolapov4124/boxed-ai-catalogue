@@ -19,8 +19,8 @@ const AgentCardsPreview = () => {
   }, [featuredAgents.length]);
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
-      <div className="relative h-96 overflow-hidden rounded-2xl">
+    <div className="relative w-full max-w-md mx-auto">
+      <div className="relative h-[440px] overflow-hidden rounded-2xl">
         {featuredAgents.map((agent, index) => (
           <div
             key={agent.id}
@@ -32,42 +32,40 @@ const AgentCardsPreview = () => {
                 : 'translate-x-full opacity-0 scale-95'
             }`}
           >
-            <Card className="h-full bg-white/95 backdrop-blur-sm border-0 shadow-2xl hover:shadow-card-hover transition-shadow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-4xl">{agent.icon}</div>
-                  <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+            <Card className="h-full bg-white backdrop-blur-sm border-0 shadow-2xl hover:shadow-card-hover transition-shadow">
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-3xl">{agent.icon}</div>
+                  <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-0 font-medium text-xs px-3 py-1">
                     {agent.category.toUpperCase()}
                   </Badge>
                 </div>
-                <CardTitle className="text-2xl font-bold text-foreground mb-2">
+                <CardTitle className="text-xl font-bold text-gray-900 mb-2">
                   {agent.name}
                 </CardTitle>
-                <p className="text-primary font-semibold text-lg">
+                <p className="text-blue-600 font-semibold text-base leading-snug">
                   {agent.valueProposition}
                 </p>
               </CardHeader>
               <CardContent className="pt-0">
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-gray-600 mb-5 leading-relaxed text-sm">
                   {agent.description}
                 </p>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="text-3xl font-bold text-foreground">
-                    ${agent.price}<span className="text-lg text-muted-foreground">/mo</span>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="text-2xl font-bold text-gray-900">
+                    ${agent.price}<span className="text-base text-gray-500 font-medium">/mo</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium">{agent.rating}</span>
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-semibold text-sm">{agent.rating}</span>
                   </div>
                 </div>
                 <Button 
-                  className="w-full font-semibold" 
+                  className="w-full font-semibold text-base h-11" 
                   variant="gradient" 
-                  size="lg"
                   asChild
                 >
                   <Link to={`/agent/${agent.id}`}>
-                    <TrendingUp className="w-4 h-4 mr-2" />
                     Deploy Now
                   </Link>
                 </Button>
@@ -78,15 +76,15 @@ const AgentCardsPreview = () => {
       </div>
       
       {/* Indicators */}
-      <div className="flex justify-center mt-6 space-x-2">
+      <div className="flex justify-center mt-4 space-x-2">
         {featuredAgents.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-white shadow-neon scale-125' 
-                : 'bg-white/40 hover:bg-white/70'
+                ? 'bg-white scale-110' 
+                : 'bg-white/50 hover:bg-white/75'
             }`}
           />
         ))}
