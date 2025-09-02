@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Bot } from 'lucide-react';
+import { useOnboarding } from '@/hooks/useOnboarding';
+import OnboardingModal from './OnboardingModal';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const onboarding = useOnboarding();
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -49,7 +52,7 @@ const Navigation = () => {
             <Button variant="outline" size="sm">
               Sign In
             </Button>
-            <Button variant="gradient" size="sm">
+            <Button variant="gradient" size="sm" onClick={onboarding.openModal}>
               Get Started
             </Button>
           </div>
@@ -88,7 +91,7 @@ const Navigation = () => {
                 <Button variant="outline" size="sm" className="flex-1">
                   Sign In
                 </Button>
-                <Button size="sm" className="flex-1" variant="gradient">
+                <Button size="sm" className="flex-1" variant="gradient" onClick={onboarding.openModal}>
                   Get Started
                 </Button>
               </div>
@@ -96,6 +99,19 @@ const Navigation = () => {
           </div>
         )}
       </div>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={onboarding.isOpen}
+        onClose={onboarding.closeModal}
+        currentStep={onboarding.currentStep}
+        data={onboarding.data}
+        isLoading={onboarding.isLoading}
+        nextStep={onboarding.nextStep}
+        prevStep={onboarding.prevStep}
+        updateData={onboarding.updateData}
+        simulateLoading={onboarding.simulateLoading}
+      />
     </nav>
   );
 };
