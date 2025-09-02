@@ -20,7 +20,7 @@ const AgentCardsPreview = () => {
 
   return (
     <div className="relative w-full max-w-md mx-auto">
-      <div className="relative h-[440px] overflow-hidden rounded-2xl">
+      <div className="relative h-[440px] overflow-hidden rounded-2xl shadow-blue-strong bg-white border border-blue-100">
         {featuredAgents.map((agent, index) => (
           <div
             key={agent.id}
@@ -32,18 +32,18 @@ const AgentCardsPreview = () => {
                 : 'translate-x-full opacity-0 scale-95'
             }`}
           >
-            <Card className="h-full bg-white backdrop-blur-sm border-0 shadow-2xl hover:shadow-card-hover transition-shadow">
+            <Card className="h-full bg-white border-0 shadow-none">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between mb-3">
                   <div className="text-3xl">{agent.icon}</div>
-                  <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-0 font-medium text-xs px-3 py-1">
+                  <Badge variant="secondary" className="bg-blue-100 text-primary border-blue-200 font-medium text-xs px-3 py-1">
                     {agent.category.toUpperCase()}
                   </Badge>
                 </div>
                 <CardTitle className="text-xl font-bold text-gray-900 mb-2">
                   {agent.name}
                 </CardTitle>
-                <p className="text-blue-600 font-semibold text-base leading-snug">
+                <p className="text-blue-highlight text-base leading-snug font-semibold">
                   {agent.valueProposition}
                 </p>
               </CardHeader>
@@ -53,16 +53,16 @@ const AgentCardsPreview = () => {
                 </p>
                 <div className="flex items-center justify-between mb-5">
                   <div className="text-2xl font-bold text-gray-900">
-                    ${agent.price}<span className="text-base text-gray-500 font-medium">/mo</span>
+                    <span className="text-blue-highlight">${agent.price}</span>
+                    <span className="text-base text-gray-500 font-medium">/mo</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span className="font-semibold text-sm">{agent.rating}</span>
+                    <span className="font-semibold text-sm text-gray-700">{agent.rating}</span>
                   </div>
                 </div>
                 <Button 
-                  className="w-full font-semibold text-base h-11" 
-                  variant="gradient" 
+                  className="w-full font-semibold text-base h-11 gradient-primary text-white hover:opacity-90" 
                   asChild
                 >
                   <Link to={`/agent/${agent.id}`}>
@@ -83,8 +83,8 @@ const AgentCardsPreview = () => {
             onClick={() => setCurrentIndex(index)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-white scale-110' 
-                : 'bg-white/50 hover:bg-white/75'
+                ? 'bg-primary scale-110 shadow-blue' 
+                : 'bg-gray-300 hover:bg-primary/50'
             }`}
           />
         ))}

@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Bot, Zap, Shield, TrendingUp, Clock, DollarSign, Users, Star, CheckCircle, Target, Sparkles } from 'lucide-react';
-import heroImage from '@/assets/hero-ai-marketplace.jpg';
 import { agents } from '@/data/agents';
 import AgentCardsPreview from '@/components/AgentCardsPreview';
 
@@ -38,25 +37,28 @@ const Landing = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 gradient-hero-dark text-white relative overflow-hidden">
+      <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-white"></div>
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
             <div className="text-left max-w-2xl">
-              <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
                 Deploy AI Agents.{' '}
-                <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent font-extrabold">
+                <span className="text-blue-highlight">
                   Cut Costs by 30%.
                 </span>
               </h1>
-              <p className="text-xl text-blue-100/90 mb-8 leading-relaxed font-medium">
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Pre-built AI agents for Sales, HR, and Healthcare.<br />
-                Ready to launch in &lt;24h.
+                <span className="text-gray-900 font-semibold">Ready to launch in &lt;24h.</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <Button 
                   size="lg" 
-                  className="text-lg px-8 py-3 font-semibold shadow-xl hover:scale-[1.02] transition-all duration-300" 
-                  variant="gradient" 
+                  className="text-lg px-8 py-3 font-semibold gradient-primary text-white hover:opacity-90 shadow-blue-strong" 
                   onClick={scrollToFeaturedAgents}
                 >
                   Deploy Your First Agent
@@ -64,50 +66,46 @@ const Landing = () => {
                 </Button>
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="text-lg px-8 py-3 font-medium border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 bg-transparent" 
+                  variant="secondary" 
+                  className="text-lg px-8 py-3 font-medium" 
                   asChild
                 >
                   <Link to="/marketplace">Explore Marketplace</Link>
                 </Button>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-yellow-300 flex-shrink-0" />
-                <p className="text-base text-blue-100/80 font-medium">
+                <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
+                <p className="text-sm text-gray-500">
                   Trusted by 120+ companies worldwide
                 </p>
               </div>
             </div>
+            {/* Right Content - Agent Cards Preview */}
             <div className="flex justify-center lg:justify-end">
               <AgentCardsPreview />
             </div>
           </div>
         </div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-32 w-24 h-24 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/4 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
       </section>
 
       {/* Why BoxedAI - Value Proposition */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why BoxedAI?</h2>
-            <p className="text-muted-foreground text-lg">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Why BoxedAI?</h2>
+            <p className="text-gray-600 text-lg">
               Proven results that transform your business operations
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {valueStats.map((stat, index) => (
-              <Card key={index} className="text-center border-none shadow-card">
+              <Card key={index} className="text-center bg-white border border-blue-100 shadow-blue hover:shadow-blue-strong transition-shadow">
                 <CardContent className="p-6">
                   <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
-                  <div className="text-2xl font-bold text-primary mb-2">{stat.value}</div>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <div className="text-2xl font-bold text-blue-highlight mb-2">{stat.value}</div>
+                  <p className="text-sm text-gray-600">{stat.label}</p>
                 </CardContent>
               </Card>
             ))}

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Bot } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useOnboarding } from '@/hooks/useOnboarding';
 import OnboardingModal from './OnboardingModal';
 import RoleSelectionModal from './RoleSelectionModal';
 import DeveloperLoginModal from './DeveloperLoginModal';
 import AddAgentModal from './AddAgentModal';
+import BoxedAILogo from './BoxedAILogo';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,8 +45,8 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <Bot className="w-8 h-8 gradient-primary text-primary" />
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <BoxedAILogo className="w-8 h-8 text-primary" />
+            <span className="text-xl font-bold text-gray-900">
               BoxedAI
             </span>
           </Link>
@@ -69,10 +70,10 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm" onClick={() => setIsRoleSelectionOpen(true)}>
+            <Button variant="secondary" size="sm" onClick={() => setIsRoleSelectionOpen(true)}>
               Sign In
             </Button>
-            <Button variant="gradient" size="sm" onClick={onboarding.openModal}>
+            <Button className="gradient-primary text-white hover:opacity-90" size="sm" onClick={onboarding.openModal}>
               Get Started
             </Button>
           </div>
@@ -108,10 +109,10 @@ const Navigation = () => {
                 </Link>
               ))}
               <div className="flex space-x-3 pt-4">
-                <Button variant="outline" size="sm" className="flex-1" onClick={() => setIsRoleSelectionOpen(true)}>
+                <Button variant="secondary" size="sm" className="flex-1" onClick={() => setIsRoleSelectionOpen(true)}>
                   Sign In
                 </Button>
-                <Button size="sm" className="flex-1" variant="gradient" onClick={onboarding.openModal}>
+                <Button size="sm" className="flex-1 gradient-primary text-white hover:opacity-90" onClick={onboarding.openModal}>
                   Get Started
                 </Button>
               </div>
