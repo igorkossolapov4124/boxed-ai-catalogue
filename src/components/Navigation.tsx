@@ -6,11 +6,13 @@ import { useOnboarding } from '@/hooks/useOnboarding';
 import OnboardingModal from './OnboardingModal';
 import RoleSelectionModal from './RoleSelectionModal';
 import DeveloperLoginModal from './DeveloperLoginModal';
+import DeveloperDashboard from './DeveloperDashboard';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRoleSelectionOpen, setIsRoleSelectionOpen] = useState(false);
   const [isDeveloperLoginOpen, setIsDeveloperLoginOpen] = useState(false);
+  const [isDeveloperDashboardOpen, setIsDeveloperDashboardOpen] = useState(false);
   const location = useLocation();
   const onboarding = useOnboarding();
 
@@ -30,6 +32,16 @@ const Navigation = () => {
       setIsDeveloperLoginOpen(true);
     }
   };
+
+  const handleDeveloperLoginSuccess = () => {
+    setIsDeveloperLoginOpen(false);
+    setIsDeveloperDashboardOpen(true);
+  };
+
+  // Show developer dashboard if it's open
+  if (isDeveloperDashboardOpen) {
+    return <DeveloperDashboard />;
+  }
 
   return (
     <nav className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
@@ -138,6 +150,7 @@ const Navigation = () => {
       <DeveloperLoginModal
         isOpen={isDeveloperLoginOpen}
         onClose={() => setIsDeveloperLoginOpen(false)}
+        onLoginSuccess={handleDeveloperLoginSuccess}
       />
     </nav>
   );

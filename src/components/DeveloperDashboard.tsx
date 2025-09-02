@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AddAgentModal from './AddAgentModal';
 import { 
   Plus, 
@@ -244,38 +243,33 @@ export const DeveloperDashboard = () => {
                   <CardTitle>My Agents</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Agent</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Views</TableHead>
-                        <TableHead>Deployments</TableHead>
-                        <TableHead>Last Updated</TableHead>
-                        <TableHead>Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {agents.map(agent => (
-                        <TableRow key={agent.id}>
-                          <TableCell className="font-medium">{agent.name}</TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{agent.category}</Badge>
-                          </TableCell>
-                          <TableCell>{getStatusBadge(agent.status)}</TableCell>
-                          <TableCell>{agent.views.toLocaleString()}</TableCell>
-                          <TableCell>{agent.deployments}</TableCell>
-                          <TableCell>{agent.lastUpdated}</TableCell>
-                          <TableCell>
-                            <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="w-4 h-4" />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <div className="space-y-4">
+                    {agents.map(agent => (
+                      <div key={agent.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-4">
+                            <div>
+                              <h4 className="font-medium">{agent.name}</h4>
+                              <p className="text-sm text-muted-foreground">{agent.category}</p>
+                            </div>
+                            <div className="ml-auto flex items-center space-x-4">
+                              {getStatusBadge(agent.status)}
+                              <div className="text-right">
+                                <div className="flex items-center space-x-4 text-sm">
+                                  <span>{agent.views.toLocaleString()} views</span>
+                                  <span>{agent.deployments} deployments</span>
+                                  <span>{agent.lastUpdated}</span>
+                                </div>
+                              </div>
+                              <Button variant="ghost" size="sm">
+                                <MoreHorizontal className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             )}

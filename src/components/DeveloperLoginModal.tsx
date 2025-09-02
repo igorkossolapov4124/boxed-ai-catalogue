@@ -11,11 +11,13 @@ import { Code, Github, Mail, Lock, User, Building } from 'lucide-react';
 interface DeveloperLoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onLoginSuccess: () => void;
 }
 
 export const DeveloperLoginModal = ({
   isOpen,
-  onClose
+  onClose,
+  onLoginSuccess
 }: DeveloperLoginModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +28,7 @@ export const DeveloperLoginModal = ({
     setTimeout(() => {
       setIsLoading(false);
       onClose();
+      onLoginSuccess();
     }, 2000);
   };
 
@@ -36,6 +39,7 @@ export const DeveloperLoginModal = ({
     setTimeout(() => {
       setIsLoading(false);
       onClose();
+      onLoginSuccess();
     }, 2000);
   };
 
