@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Bot, Zap, Shield, TrendingUp, Clock, DollarSign, Users, Star, CheckCircle, Target, Sparkles } from 'lucide-react';
 import heroImage from '@/assets/hero-ai-marketplace.jpg';
 import { agents } from '@/data/agents';
+import AgentCardsPreview from '@/components/AgentCardsPreview';
 
 const Landing = () => {
   const scrollToFeaturedAgents = () => {
@@ -37,43 +38,55 @@ const Landing = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+      <section className="py-20 lg:py-32 gradient-hero-dark text-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="text-center lg:text-left">
+              <h1 className="text-5xl lg:text-7xl font-black leading-tight mb-8 neon-glow">
                 Deploy AI Agents.{' '}
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Cut costs by 30%
+                <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                  Cut Costs by 30%.
                 </span>
-                <br />
-                and save 40+ hours monthly.
               </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Ready-to-use AI agents for Sales, HR, Healthcare, and more. Start today with a flat monthly fee.
+              <p className="text-2xl text-blue-100 mb-10 leading-relaxed font-medium">
+                Pre-built AI agents for Sales, HR, and Healthcare. Ready to launch in &lt;24h.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <Button size="lg" className="text-lg px-8" variant="gradient" onClick={scrollToFeaturedAgents}>
-                  Deploy Agent Now
-                  <ArrowRight className="ml-2 w-5 h-5" />
+              <div className="flex flex-col sm:flex-row gap-6 mb-8 justify-center lg:justify-start">
+                <Button 
+                  size="lg" 
+                  className="text-xl px-10 py-4 font-bold shadow-2xl hover:scale-105 transition-all duration-300" 
+                  variant="gradient" 
+                  onClick={scrollToFeaturedAgents}
+                >
+                  Deploy Your First Agent
+                  <ArrowRight className="ml-3 w-6 h-6" />
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8" asChild>
-                  <Link to="/marketplace">Browse Agents</Link>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-xl px-10 py-4 font-semibold border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300" 
+                  asChild
+                >
+                  <Link to="/marketplace">Explore Marketplace</Link>
                 </Button>
               </div>
-              <p className="text-sm text-muted-foreground">
-                ✨ Trusted by 120+ businesses worldwide
-              </p>
+              <div className="flex items-center justify-center lg:justify-start gap-3">
+                <Sparkles className="w-5 h-5 text-yellow-300" />
+                <p className="text-lg text-blue-100 font-medium">
+                  Trusted by 120+ companies worldwide
+                </p>
+              </div>
             </div>
-            <div className="lg:order-first order-last">
-              <img 
-                src={heroImage} 
-                alt="AI Marketplace Dashboard" 
-                className="rounded-xl shadow-card-hover w-full"
-              />
+            <div className="flex justify-center lg:justify-end">
+              <AgentCardsPreview />
             </div>
           </div>
         </div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-40 right-32 w-24 h-24 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/4 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
       </section>
 
       {/* Why BoxedAI - Value Proposition */}

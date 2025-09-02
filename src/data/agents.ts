@@ -205,5 +205,73 @@ export const agents: Agent[] = [
       integrations: ["N8N", "Zapier", "Make.com"],
       infrastructure: ["AWS", "Microsoft Azure"]
     }
+  },
+  {
+    id: 3,
+    name: "Healthcare Assistant",
+    category: "healthcare",
+    description: "AI-powered patient interaction agent that handles inquiries, schedules appointments, and provides medical guidance.",
+    fullDescription: "Healthcare Assistant revolutionizes patient care with intelligent automation. It manages patient inquiries 24/7, schedules appointments efficiently, and provides preliminary medical guidance based on symptoms and health data.",
+    features: [
+      "24/7 patient inquiry handling",
+      "Intelligent appointment scheduling", 
+      "Symptom analysis and triage",
+      "Medical record integration",
+      "Multilingual patient support"
+    ],
+    price: 399,
+    tags: ["healthcare", "patient-care", "scheduling"],
+    rating: 4.9,
+    reviewCount: 156,
+    image: "/api/placeholder/300/200",
+    icon: "🏥",
+    valueProposition: "Process 3x more patient inquiries. Reduce wait times by 50%.",
+    problemStatement: "Healthcare providers struggle with overwhelming patient inquiries and inefficient appointment scheduling.",
+    solution: "Our AI assistant handles patient communications, schedules appointments intelligently, and provides instant medical guidance.",
+    result: "50% reduction in patient wait times with 3x increase in inquiry processing capacity.",
+    businessHighlights: [
+      { icon: "🏥", text: "3x more patients served daily" },
+      { icon: "⏱", text: "50% reduced wait times" },
+      { icon: "📋", text: "90% appointment accuracy rate" }
+    ],
+    integrations: ["Epic", "Cerner", "Allscripts", "NextGen"],
+    trustIndicator: "HIPAA compliant • Used by 80+ healthcare facilities",
+    caseExample: "Regional hospital → 200% increase in patient satisfaction scores",
+    media: {
+      images: [
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=450&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=450&fit=crop&auto=format"
+      ],
+      videos: [],
+      demos: [
+        { title: "Patient Inquiry Demo", url: "#", thumbnail: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=225&fit=crop&auto=format" }
+      ]
+    },
+    reviews: [
+      {
+        id: 1,
+        author: "Dr. Amanda Foster",
+        company: "Regional Medical Center",
+        rating: 5,
+        comment: "Transformed our patient experience. The AI handles routine inquiries perfectly, freeing up our staff for complex cases.",
+        date: "2024-01-12",
+        verified: true
+      }
+    ],
+    implementation: {
+      timeline: "2-4 weeks deployment",
+      phases: [
+        { name: "EMR Integration", duration: "3-5 days", description: "Connect to existing medical record systems" },
+        { name: "HIPAA Compliance Setup", duration: "2-3 days", description: "Configure security and privacy protocols" },
+        { name: "Staff Training", duration: "3-4 days", description: "Train medical staff on AI assistant workflow" },
+        { name: "Patient Rollout", duration: "1-2 days", description: "Launch patient-facing features" }
+      ],
+      support: "24/7 healthcare specialist support with medical compliance oversight"
+    },
+    techStack: {
+      primary: ["ChatGPT-4", "Claude 3", "Med-PaLM"],
+      integrations: ["N8N", "Zapier", "HL7 FHIR"],
+      infrastructure: ["AWS Healthcare", "Microsoft Azure Healthcare"]
+    }
   }
 ];
