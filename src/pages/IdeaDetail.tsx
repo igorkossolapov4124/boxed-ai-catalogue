@@ -92,7 +92,7 @@ const IdeaDetail = () => {
               <CardHeader>
                 <CardTitle className="text-2xl">Demo & Screenshots</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-6">
                 <div className="relative group cursor-pointer">
                   <img 
                     src={idea.caseStudy.demo} 
@@ -100,10 +100,23 @@ const IdeaDetail = () => {
                     className="w-full rounded-lg shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors rounded-lg flex items-center justify-center">
-                    <div className="bg-white/90 p-4 rounded-full">
+                    <div className="bg-white/90 p-4 rounded-full shadow-lg">
                       <Play className="w-8 h-8 text-blue-600" />
                     </div>
                   </div>
+                  {/* Annotations overlay */}
+                  <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-medium text-blue-600">
+                    Lead Scoring
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm font-medium text-blue-600">
+                    Follow-up Scheduling
+                  </div>
+                </div>
+                <div className="text-center">
+                  <Button variant="outline" className="gap-2">
+                    <Play className="w-4 h-4" />
+                    Play 30s Demo
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -129,7 +142,8 @@ const IdeaDetail = () => {
               <CardHeader>
                 <CardTitle className="text-2xl">Built With</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-6">
+                {/* Tech Stack Badges */}
                 <div className="flex flex-wrap gap-2">
                   {idea.caseStudy.stackUsed.map(tool => (
                     <Badge key={tool} variant="outline" className="border-blue-200 text-blue-700 text-sm py-1 px-3">
@@ -137,20 +151,73 @@ const IdeaDetail = () => {
                     </Badge>
                   ))}
                 </div>
+                
+                {/* Tech Stack Diagram */}
+                <div className="bg-blue-50/30 p-6 rounded-lg">
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex flex-col items-center">
+                      <div className="bg-white p-3 rounded-lg shadow-sm border border-blue-200 mb-2">
+                        <span className="font-medium">OpenAI</span>
+                      </div>
+                      <span className="text-gray-500">Lead Scoring</span>
+                    </div>
+                    <div className="text-blue-400">→</div>
+                    <div className="flex flex-col items-center">
+                      <div className="bg-white p-3 rounded-lg shadow-sm border border-blue-200 mb-2">
+                        <span className="font-medium">n8n</span>
+                      </div>
+                      <span className="text-gray-500">Workflow</span>
+                    </div>
+                    <div className="text-blue-400">→</div>
+                    <div className="flex flex-col items-center">
+                      <div className="bg-white p-3 rounded-lg shadow-sm border border-blue-200 mb-2">
+                        <span className="font-medium">HubSpot</span>
+                      </div>
+                      <span className="text-gray-500">CRM Update</span>
+                    </div>
+                    <div className="text-blue-400">→</div>
+                    <div className="flex flex-col items-center">
+                      <div className="bg-white p-3 rounded-lg shadow-sm border border-blue-200 mb-2">
+                        <span className="font-medium">Slack</span>
+                      </div>
+                      <span className="text-gray-500">Notifications</span>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
+
+            {/* Use Cases */}
+            {idea.caseStudy.useCases && (
+              <Card className="border border-blue-100">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Use Cases</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {idea.caseStudy.useCases.map((useCase, index) => (
+                      <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                        <p className="font-medium text-gray-900">{useCase}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* JSON Files */}
             <Card className="border border-blue-100">
               <CardHeader>
                 <CardTitle className="text-2xl">Download JSON</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
+              <CardContent className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
                   <Card className="border border-gray-200">
                     <CardContent className="p-4">
                       <h4 className="font-semibold mb-2">Free Sample JSON</h4>
-                      <p className="text-sm text-gray-600 mb-4">Basic workflow skeleton without sensitive data.</p>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Includes lead scoring logic + HubSpot connection. No personalization layer.
+                      </p>
                       <Button variant="outline" className="w-full">
                         Download Free
                       </Button>
@@ -163,8 +230,11 @@ const IdeaDetail = () => {
                         <h4 className="font-semibold">Premium JSON</h4>
                         <span className="text-lg font-bold text-blue-600">${idea.json.price}</span>
                       </div>
-                      <p className="text-sm text-gray-600 mb-4">Full automation workflow with integration and setup notes.</p>
-                      <Button className="w-full gradient-primary text-white" asChild>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Full workflow with lead scoring, automated follow-ups, and personalized email script generation. 
+                        Includes setup guide and required env variables.
+                      </p>
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" asChild>
                         <Link to={`/checkout/json/${idea.json.id}`}>
                           Get Premium JSON
                         </Link>
@@ -172,6 +242,16 @@ const IdeaDetail = () => {
                     </CardContent>
                   </Card>
                 </div>
+                
+                {/* JSON Preview */}
+                {idea.caseStudy.jsonPreview && (
+                  <div className="mt-6">
+                    <h4 className="font-semibold mb-3">JSON Preview</h4>
+                    <div className="bg-gray-900 text-gray-300 p-4 rounded-lg overflow-x-auto">
+                      <pre className="text-sm">{idea.caseStudy.jsonPreview}</pre>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -181,11 +261,31 @@ const IdeaDetail = () => {
                 <CardTitle className="text-2xl">Custom Integration</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-600">Need us to tailor and deploy this workflow into your stack?</p>
+                <p className="text-gray-600">
+                  Need this tailored for your CRM? We deploy into HubSpot, Salesforce, or custom CRMs.
+                </p>
+                <div className="bg-blue-50/30 p-4 rounded-lg">
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="font-medium">Supported CRMs:</span>
+                      <p className="text-gray-600">{idea.integration.supportedCRMs?.join(', ')}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium">Avg delivery time:</span>
+                      <p className="text-gray-600">{'<'}{idea.integration.deliveryDays} days</p>
+                    </div>
+                    <div>
+                      <span className="font-medium">Pricing:</span>
+                      <p className="text-gray-600">
+                        ${idea.integration.basePrice} to ${idea.integration.maxPrice || (idea.integration.basePrice * 4)} depending on complexity
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <Button variant="secondary" size="lg" asChild>
                   <Link to={`/integration?idea=${idea.id}`}>
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Request Integration — from ${idea.integration.basePrice}
+                    Talk to an Architect — from ${idea.integration.basePrice}
                   </Link>
                 </Button>
               </CardContent>
@@ -197,16 +297,18 @@ const IdeaDetail = () => {
                 <CardTitle className="text-2xl">What Others Achieved</CardTitle>
               </CardHeader>
               <CardContent>
-                {idea.reviews.map((review, index) => (
-                  <div key={index} className="bg-gray-50 p-6 rounded-lg">
-                    <blockquote className="text-lg italic text-gray-700 mb-4">
-                      "{review.quote}"
-                    </blockquote>
-                    <cite className="text-sm font-medium text-gray-900">
-                      — {review.author}
-                    </cite>
-                  </div>
-                ))}
+                <div className="grid md:grid-cols-1 gap-6">
+                  {idea.reviews.map((review, index) => (
+                    <div key={index} className="bg-gray-50 p-6 rounded-lg">
+                      <blockquote className="text-lg italic text-gray-700 mb-4">
+                        "{review.quote}"
+                      </blockquote>
+                      <cite className="text-sm font-medium text-gray-900">
+                        — {review.author}
+                      </cite>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 

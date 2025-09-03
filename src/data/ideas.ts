@@ -25,10 +25,14 @@ export interface Idea {
     demo: string;
     stackUsed: string[];
     keyMetrics: string[];
+    useCases?: string[];
+    jsonPreview?: string;
   };
   integration: {
     basePrice: number;
+    maxPrice?: number;
     deliveryDays: number;
+    supportedCRMs?: string[];
   };
   reviews: {
     quote: string;
@@ -87,13 +91,13 @@ export const ideas: Idea[] = [
       count: 124
     },
     json: {
-      price: 19,
+      price: 29,
       id: "json_sales_closer_v1"
     },
     caseStudy: {
-      problem: "Sales teams waste countless hours on manual lead qualification and struggle with inconsistent closing techniques.",
-      solution: "Automated workflow built with n8n + HubSpot API + OpenAI to score leads, schedule follow-ups, and generate personalized closing scripts.",
-      result: "27% increase in closed deals, 40+ hours saved per rep monthly, 62% faster lead qualification process.",
+      problem: "A mid-size B2B SaaS sales team struggled with inconsistent lead qualification, wasting 40+ hours per rep monthly and closing only 45% of deals.",
+      solution: "Automated workflow built with n8n + HubSpot API + OpenAI. It scored leads in real time, scheduled follow-ups, and generated personalized closing scripts.",
+      result: "Within 2 months, close rate jumped from 45% to 72%. Each rep saved 40+ hours monthly, and lead qualification became 62% faster.",
       beforeAfter: "Before: 45% close rate, 8 hours/week per lead. After: 72% close rate, 3 hours/week per lead.",
       demo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop&auto=format",
       stackUsed: ["HubSpot", "Salesforce", "n8n", "OpenAI"],
@@ -101,16 +105,40 @@ export const ideas: Idea[] = [
         "+27% closed deals within 2 months",
         "−62% lead qualification time", 
         "40+ hours saved per rep monthly"
-      ]
+      ],
+      useCases: [
+        "Inside sales team follow-ups",
+        "SMB SaaS pipeline qualification", 
+        "Enterprise sales forecasting"
+      ],
+      jsonPreview: `{
+  "workflow": "lead-scoring-automation",
+  "triggers": ["new_lead", "lead_update"],
+  "actions": {
+    "score_lead": { "model": "gpt-4", "criteria": ["company_size", "budget", "timeline"] },
+    "schedule_followup": { "delay": "24h", "personalized": true },
+    "generate_script": { "based_on": ["lead_score", "interaction_history"] }
+  }
+}`
     },
     integration: {
       basePrice: 500,
-      deliveryDays: 14
+      maxPrice: 2000,
+      deliveryDays: 14,
+      supportedCRMs: ["HubSpot", "Salesforce", "Custom CRMs"]
     },
     reviews: [
       {
-        quote: "Our close rate jumped from 45% to 72% after implementing this workflow. Game changer.",
-        author: "Sarah Chen, VP Sales at TechFlow"
+        quote: "Our close rate jumped from 45% to 72% in 2 months.",
+        author: "VP Sales, TechFlow"
+      },
+      {
+        quote: "Saved 180+ hours in 6 weeks across the team.",
+        author: "Director of Sales Ops, SaaSCo"
+      },
+      {
+        quote: "22% pipeline growth after automation rollout.",
+        author: "Head of Revenue, GrowthCorp"
       }
     ]
   },
