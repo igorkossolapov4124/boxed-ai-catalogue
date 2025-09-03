@@ -242,16 +242,6 @@ const IdeaDetail = () => {
                     </CardContent>
                   </Card>
                 </div>
-                
-                {/* JSON Preview */}
-                {idea.caseStudy.jsonPreview && (
-                  <div className="mt-6">
-                    <h4 className="font-semibold mb-3">JSON Preview</h4>
-                    <div className="bg-gray-900 text-gray-300 p-4 rounded-lg overflow-x-auto">
-                      <pre className="text-sm">{idea.caseStudy.jsonPreview}</pre>
-                    </div>
-                  </div>
-                )}
               </CardContent>
             </Card>
 
