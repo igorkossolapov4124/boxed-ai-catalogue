@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Bot, Zap, Shield, TrendingUp, Clock, DollarSign, Users, Star, CheckCircle, Target, Sparkles } from 'lucide-react';
-import { agents } from '@/data/agents';
-import AgentCardsPreview from '@/components/AgentCardsPreview';
+import { ideas } from '@/data/ideas';
+import IdeaCard from '@/components/IdeaCard';
 
 const Landing = () => {
   const scrollToFeaturedAgents = () => {
@@ -18,12 +18,12 @@ const Landing = () => {
     { icon: Zap, value: "<24h", label: "deployment time" }
   ];
 
-  const featuredAgents = agents.slice(0, 3);
+  const featuredIdeas = ideas.slice(0, 3);
 
   const howItWorks = [
-    { icon: Target, title: "Choose an Agent", description: "Browse our marketplace of pre-built AI agents" },
-    { icon: Sparkles, title: "Customize & Deploy in <24h", description: "Quick setup with our expert team" },
-    { icon: TrendingUp, title: "See ROI within 90 days", description: "Guaranteed results or money back" }
+    { icon: Target, title: "Browse real business ideas", description: "Explore 100+ proven AI automation use cases" },
+    { icon: Sparkles, title: "Download a JSON or request integration", description: "Get production-ready configs from $19 or custom implementation from $500" },
+    { icon: TrendingUp, title: "See ROI within 90 days", description: "Case-proven results with measurable business impact" }
   ];
 
   const testimonials = [
@@ -46,23 +46,25 @@ const Landing = () => {
             {/* Left Content */}
             <div className="text-left max-w-2xl">
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
-                Deploy AI Agents.{' '}
+                Explore 100+ Real{' '}
                 <span className="text-blue-highlight">
-                  Cut Costs by 30%.
+                  AI Use Cases
                 </span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Pre-built AI agents for Sales, HR, and Healthcare.<br />
-                <span className="text-gray-900 font-semibold">Ready to launch in &lt;24h.</span>
+                See how Sales, HR, and Healthcare teams automate workflows with AI.<br />
+                <span className="text-gray-900 font-semibold">Download JSONs. Get integration help.</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <Button 
                   size="lg" 
                   className="text-lg px-8 py-3 font-semibold gradient-primary text-white hover:opacity-90 shadow-blue-strong" 
-                  onClick={scrollToFeaturedAgents}
+                  asChild
                 >
-                  Deploy Your First Agent
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <Link to="/ideas">
+                    Browse Ideas Free
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
                 </Button>
                 <Button 
                   size="lg" 
@@ -70,19 +72,35 @@ const Landing = () => {
                   className="text-lg px-8 py-3 font-medium" 
                   asChild
                 >
-                  <Link to="/marketplace">Explore Marketplace</Link>
+                  <Link to="/ideas?filter=premium">Get Premium JSON</Link>
                 </Button>
               </div>
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
                 <p className="text-sm text-gray-500">
-                  Trusted by 120+ companies worldwide
+                  Trusted by 120+ businesses
                 </p>
               </div>
             </div>
-            {/* Right Content - Agent Cards Preview */}
+            {/* Right Content - Ideas Preview */}
             <div className="flex justify-center lg:justify-end">
-              <AgentCardsPreview />
+              <div className="bg-white rounded-xl p-6 shadow-blue-strong border border-blue-100 max-w-md">
+                <h3 className="font-semibold text-lg mb-4 text-gray-900">Featured Ideas</h3>
+                <div className="space-y-3">
+                  {featuredIdeas.slice(0, 3).map((idea) => (
+                    <div key={idea.id} className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                      <img src={idea.thumbnail} alt={idea.title} className="w-12 h-12 rounded object-cover" />
+                      <div>
+                        <p className="font-medium text-sm text-gray-900">{idea.title}</p>
+                        <p className="text-xs text-blue-600">{idea.outcome}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Button className="w-full mt-4 gradient-primary text-white" asChild>
+                  <Link to="/ideas">View All Ideas</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -113,45 +131,20 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Featured Agents */}
+      {/* Featured Ideas */}
       <section id="featured-agents" className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Featured AI Agents
+              Featured AI Use Cases
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Ready-to-deploy solutions that deliver immediate ROI
+              Real business automations with proven ROI
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredAgents.map((agent) => (
-              <Card key={agent.id} className="border-none shadow-card hover:shadow-card-hover transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-3xl">{agent.icon}</div>
-                    <Badge variant="secondary">{agent.category}</Badge>
-                  </div>
-                  <CardTitle className="text-xl mb-2">{agent.name}</CardTitle>
-                  <p className="text-primary font-semibold">{agent.valueProposition}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">{agent.description}</p>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-2xl font-bold">${agent.price}/mo</div>
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm font-medium">{agent.rating}</span>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mb-4 italic">
-                    "{agent.caseExample}"
-                  </p>
-                  <Button className="w-full" variant="gradient" asChild>
-                    <Link to={`/agent/${agent.id}`}>Deploy Now</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+            {featuredIdeas.map((idea) => (
+              <IdeaCard key={idea.id} idea={idea} />
             ))}
           </div>
         </div>
@@ -231,29 +224,62 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* JSON & Services Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Flat monthly fee. Cancel anytime.
+            JSON & Services
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Transparent pricing with no hidden costs. Start transforming your business today.
+          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Production-ready configurations and custom integrations to accelerate your AI automation
           </p>
-          <div className="mb-8">
-            <div className="text-4xl lg:text-6xl font-bold text-primary mb-2">
-              Starting from $299<span className="text-xl text-muted-foreground">/month</span>
-            </div>
-            <p className="text-muted-foreground">Per AI agent • Cancel anytime • 30-day guarantee</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8" variant="gradient" onClick={scrollToFeaturedAgents}>
-              Deploy Agent
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8">
-              Talk to Specialist
-            </Button>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="border border-blue-100 shadow-blue">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold mb-4">Premium JSONs</h3>
+                <div className="text-3xl font-bold text-primary mb-4">from $19</div>
+                <ul className="space-y-3 mb-6 text-left">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Production-ready configs</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Setup notes & env vars</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>One-seat license</span>
+                  </li>
+                </ul>
+                <Button className="w-full gradient-primary text-white" asChild>
+                  <Link to="/ideas">Browse JSONs</Link>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="border border-blue-100 shadow-blue">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold mb-4">Custom Integration</h3>
+                <div className="text-3xl font-bold text-primary mb-4">from $500</div>
+                <ul className="space-y-3 mb-6 text-left">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Solution architect + engineer</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Tooling: n8n/Make/Zapier + your stack</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Handover & basic docs</span>
+                  </li>
+                </ul>
+                <Button className="w-full" variant="secondary" asChild>
+                  <Link to="/integration">Request Integration</Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -262,11 +288,13 @@ const Landing = () => {
       <section className="py-20 gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-5xl font-bold mb-8">
-            Ready to deploy your first AI agent?
+            Ready to explore AI automations?
           </h2>
-          <Button size="lg" className="text-lg px-8" variant="gradient" onClick={scrollToFeaturedAgents}>
-            Deploy Agent Now
-            <ArrowRight className="ml-2 w-5 h-5" />
+          <Button size="lg" className="text-lg px-8" variant="gradient" asChild>
+            <Link to="/ideas">
+              Browse Ideas Now
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>

@@ -18,9 +18,9 @@ const Navigation = () => {
   const onboarding = useOnboarding();
 
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Marketplace', href: '/marketplace' },
+    { name: 'Ideas', href: '/ideas' },
     { name: 'Categories', href: '/categories' },
+    { name: 'JSON & Services', href: '/pricing' }
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -73,8 +73,8 @@ const Navigation = () => {
             <Button variant="secondary" size="sm" onClick={() => setIsRoleSelectionOpen(true)}>
               Sign In
             </Button>
-            <Button className="gradient-primary text-white hover:opacity-90" size="sm" onClick={onboarding.openModal}>
-              Get Started
+            <Button className="gradient-primary text-white hover:opacity-90" size="sm" asChild>
+              <Link to="/ideas">Get Started</Link>
             </Button>
           </div>
 
@@ -112,8 +112,8 @@ const Navigation = () => {
                 <Button variant="secondary" size="sm" className="flex-1" onClick={() => setIsRoleSelectionOpen(true)}>
                   Sign In
                 </Button>
-                <Button size="sm" className="flex-1 gradient-primary text-white hover:opacity-90" onClick={onboarding.openModal}>
-                  Get Started
+                <Button size="sm" className="flex-1 gradient-primary text-white hover:opacity-90" asChild>
+                  <Link to="/ideas">Get Started</Link>
                 </Button>
               </div>
             </div>

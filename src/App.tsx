@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Landing from "./pages/Landing";
+import Ideas from "./pages/Ideas";
+import IdeaDetail from "./pages/IdeaDetail"; 
+import CheckoutJson from "./pages/CheckoutJson";
+import Integration from "./pages/Integration";
 import Marketplace from "./pages/Marketplace";
 import Categories from "./pages/Categories";
 import AgentDetail from "./pages/AgentDetail";
@@ -22,6 +26,10 @@ const App = () => (
           <Navigation />
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/ideas" element={<Ideas />} />
+            <Route path="/idea/:slug" element={<IdeaDetail />} />
+            <Route path="/checkout/json/:id" element={<CheckoutJson />} />
+            <Route path="/integration" element={<Integration />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/agent/:id" element={<AgentDetail />} />
