@@ -187,4 +187,38 @@
     color: hsl(var(--primary));
     font-weight: 600;
   }
+
+  /* Animation Delays for Staggered Effects */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-550 {
+    animation-delay: 550ms;
+  }
+  
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+
+  /* Hover Scale Animation */
+  .hover-scale {
+    transition: transform 0.2s ease-out;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
 }
