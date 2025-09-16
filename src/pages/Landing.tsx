@@ -32,7 +32,7 @@ const Landing = () => {
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
-                  BoxedAI: Free Catalog of 
+                  Free Catalog of 
                   <span className="text-primary"> AI Agents</span> for Any Business
                 </h1>
                 
