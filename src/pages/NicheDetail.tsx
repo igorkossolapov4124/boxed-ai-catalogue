@@ -99,51 +99,64 @@ const NicheDetail = () => {
                             to={`/niche/${nicheId}/department/${department.id}`}
                             className="group block"
                           >
-                            <Card className="h-full transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1">
-                              <CardContent className="p-6">
-                                {/* Icon */}
-                                <div className="mb-4">
-                                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                                    <DeptIcon className="w-6 h-6 text-primary" />
+                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+                              <CardContent className="p-6 flex flex-col h-full">
+                                {/* Icon with colored background */}
+                                <div className="mb-5">
+                                  <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
+                                    <DeptIcon className="w-7 h-7 text-primary" />
                                   </div>
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-lg font-semibold mb-2">
+                                <h3 className="text-lg font-bold mb-3">
                                   {department.name}
                                 </h3>
 
-                                {/* Benefit Link */}
+                                {/* Benefit/Value Line */}
                                 <div className="mb-3">
-                                  <span className="text-sm font-medium text-primary hover:text-primary-dark transition-colors">
+                                  <p className="text-sm font-semibold text-primary">
                                     {department.benefit}
-                                  </span>
+                                  </p>
                                 </div>
 
-                                {/* Description */}
-                                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                                {/* Short Description */}
+                                <p className="text-sm text-muted-foreground mb-4">
                                   {department.description}
                                 </p>
 
-                                {/* KPI Badges */}
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                  {department.kpis.map((kpi, idx) => (
-                                    <Badge key={idx} variant="secondary" className="text-xs">
+                                {/* 3 Bullet Points */}
+                                <ul className="text-xs text-muted-foreground space-y-2 mb-5">
+                                  {department.tooltip.map((item, idx) => (
+                                    <li key={idx} className="flex items-start">
+                                      <span className="mr-2">•</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+
+                                {/* KPI Badges (max 2) */}
+                                <div className="flex flex-wrap gap-2 mb-3">
+                                  {department.kpis.slice(0, 2).map((kpi, idx) => (
+                                    <Badge key={idx} variant="secondary" className="text-xs font-medium">
                                       {kpi}
                                     </Badge>
                                   ))}
                                 </div>
 
-                                {/* Available Agents */}
-                                <div className="flex items-center justify-between mb-4">
-                                  <span className="text-xs text-muted-foreground">Available Agents</span>
-                                  <span className="text-xs font-medium">{department.agents.length}</span>
+                                {/* Available Agents - smaller text */}
+                                <div className="mb-4">
+                                  <span className="text-[10px] text-muted-foreground">
+                                    {department.agents.length} solution{department.agents.length !== 1 ? 's' : ''} available
+                                  </span>
                                 </div>
 
-                                {/* CTA */}
-                                <div className="flex items-center justify-end text-sm font-medium text-primary group-hover:text-primary-dark transition-colors">
-                                  View Agents
-                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                {/* CTA - always bottom-right */}
+                                <div className="mt-auto flex justify-end">
+                                  <div className="flex items-center text-sm font-semibold text-primary group-hover:text-primary-dark transition-colors">
+                                    See Solutions
+                                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                  </div>
                                 </div>
                               </CardContent>
                             </Card>
@@ -151,7 +164,7 @@ const NicheDetail = () => {
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-xs">
                           <div className="space-y-2">
-                            <p className="font-semibold text-sm">What this department covers:</p>
+                            <p className="font-semibold text-sm">What this covers:</p>
                             <ul className="text-xs space-y-1">
                               {department.tooltip.map((item, idx) => (
                                 <li key={idx}>• {item}</li>

@@ -200,16 +200,14 @@ export const niches: Niche[] = [
     departments: [
       {
         id: 'admissions',
-        name: 'Admissions',
-        description: 'Automate lead capture, screening, and follow-ups to increase enrollment rate.',
-        benefit: 'Enroll more students with less effort',
-        kpis: ['Conversion Rate', 'Time-to-Enroll', 'No-Show Rate'],
+        name: 'Admissions & Enrollment',
+        description: 'Automate lead capture, follow-ups, reminders, and enrollment.',
+        benefit: 'Get more student enrollments with less manual work',
+        kpis: ['More Enrollments', 'Faster Sign-Ups'],
         tooltip: [
-          'Lead capture from forms, WhatsApp/IG DMs',
-          'Interview scheduling',
-          'No-show recovery',
-          'Automated screening',
-          'Follow-up sequences'
+          'Auto-capture leads from forms + DMs',
+          'Follow-ups & reminders sent for you',
+          'Recover lost leads & no-shows'
         ],
         icon: 'ClipboardCheck',
         agents: [
@@ -234,15 +232,13 @@ export const niches: Niche[] = [
       {
         id: 'marketing',
         name: 'Marketing & Outreach',
-        description: 'Run data-driven ads, content, and email/SMS to attract the right students.',
-        benefit: 'Fill your pipeline with qualified applicants',
-        kpis: ['Cost per Lead', 'Lead Quality', 'Reach'],
+        description: 'Run content, ads, email/SMS — all automated.',
+        benefit: 'Bring in more student leads every week',
+        kpis: ['Lower Cost per Lead', 'More Leads'],
         tooltip: [
-          'Ad creatives and campaign management',
-          'Keyword/SEO optimization',
-          'Newsletter cadence',
-          'UTM analytics',
-          'Social media automation'
+          'Social content & email campaigns',
+          'Automated ads & tracking',
+          'Local SEO for more organic leads'
         ],
         icon: 'Megaphone',
         agents: [
@@ -259,15 +255,13 @@ export const niches: Niche[] = [
       {
         id: 'teaching',
         name: 'Teaching & Learning',
-        description: 'AI tutors, lesson planning, assessments, and personalized feedback.',
-        benefit: 'Improve learning outcomes at scale',
-        kpis: ['Test Scores', 'Completion Rate', 'Engagement'],
+        description: 'AI lesson prep, tutoring, assessments, and feedback.',
+        benefit: 'Improve learning results with less teacher effort',
+        kpis: ['Higher Completion', 'Better Scores'],
         tooltip: [
-          'Syllabus builder',
-          'Quiz generator',
-          'Rubric grading',
-          'Tutor matching',
-          'Personalized learning paths'
+          'AI-assisted lesson plans & quizzes',
+          'Personalized AI tutoring',
+          'Faster grading & feedback'
         ],
         icon: 'BookOpen',
         agents: [
@@ -291,16 +285,14 @@ export const niches: Niche[] = [
       },
       {
         id: 'student-support',
-        name: 'Student Support',
-        description: '24/7 answers for students/parents, proactive nudges, and case triage.',
-        benefit: 'Reduce support workload by 50%',
-        kpis: ['Response Time', 'Ticket Deflection', 'CSAT'],
+        name: 'Student & Parent Support',
+        description: 'Instant answers for parents/students + proactive nudges.',
+        benefit: '24/7 support without extra staff',
+        kpis: ['Faster Replies', 'Happier Families'],
         tooltip: [
-          '24/7 FAQ',
-          'Ticket routing',
-          'Wellbeing checks',
-          'Escalation rules',
-          'Parent communication'
+          'Auto replies to common questions',
+          'Escalation only for complex cases',
+          'Proactive reminders & guidance'
         ],
         icon: 'Headphones',
         agents: [
@@ -317,15 +309,13 @@ export const niches: Niche[] = [
       {
         id: 'operations',
         name: 'Operations & Scheduling',
-        description: 'Timetables, room allocation, instructor rosters, attendance, documentation.',
-        benefit: 'Save 20+ hours/week on admin',
-        kpis: ['Admin Hours', 'Utilization', 'Errors'],
+        description: 'Timetables, attendance, documents — automated.',
+        benefit: 'Save 20+ hours/week on admin & scheduling',
+        kpis: ['Less Admin Time', 'Fewer Errors'],
         tooltip: [
-          'Class calendars',
-          'Capacity planning',
-          'Attendance logs',
-          'Document automation',
-          'Instructor coordination'
+          'Class & teacher scheduling',
+          'Attendance & documentation',
+          'Admin tasks done by AI'
         ],
         icon: 'Calendar',
         agents: [
@@ -341,16 +331,14 @@ export const niches: Niche[] = [
       },
       {
         id: 'finance',
-        name: 'Finance & Billing',
-        description: 'Automate invoicing, reminders, financial aid checks, and refunds.',
-        benefit: 'Fewer payment delays, clearer cash flow',
-        kpis: ['DSO', 'Collection Rate', 'Billing Errors'],
+        name: 'Billing & Payments',
+        description: 'Invoices, reminders, financial aid checks, and refunds.',
+        benefit: 'On-time payments with fewer issues',
+        kpis: ['Faster Payments', 'Fewer Payment Issues'],
         tooltip: [
-          'Invoice generation',
-          'Failed payment retries',
-          'Scholarship checks',
-          'Receipts',
-          'Financial reporting'
+          'Automatic invoices & receipts',
+          'Payment reminders & failed payment recovery',
+          'Financial aid / refund handling'
         ],
         icon: 'DollarSign',
         agents: [
