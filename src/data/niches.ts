@@ -1,4 +1,18 @@
-import { Scissors, GraduationCap, Home, Dumbbell, Smile, Heart, Car } from 'lucide-react';
+import { 
+  Scissors, 
+  GraduationCap, 
+  Home, 
+  Dumbbell, 
+  Smile, 
+  Heart, 
+  Car,
+  ClipboardCheck,
+  Megaphone,
+  BookOpen,
+  Headphones,
+  Calendar,
+  DollarSign
+} from 'lucide-react';
 
 export interface NicheAgent {
   id: number;
@@ -14,6 +28,9 @@ export interface Department {
   name: string;
   description: string;
   benefit: string;
+  kpis: string[];
+  tooltip: string[];
+  icon: string;
   agents: NicheAgent[];
 }
 
@@ -37,6 +54,15 @@ export const niches: Niche[] = [
         name: 'Reception',
         description: 'Automate bookings and customer communication',
         benefit: 'Reduce no-shows by 40% and automate scheduling',
+        kpis: ['No-Shows', 'Booking Rate', 'Response Time'],
+        tooltip: [
+          'Automated appointment scheduling',
+          'WhatsApp & Instagram booking',
+          'Smart reminders and follow-ups',
+          'Cancellation management',
+          'Multi-channel communication'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 101,
@@ -61,6 +87,15 @@ export const niches: Niche[] = [
         name: 'Marketing',
         description: 'Grow your customer base with AI-powered campaigns',
         benefit: 'Attract 3x more customers with automated marketing',
+        kpis: ['Engagement', 'Follower Growth', 'Content Output'],
+        tooltip: [
+          'Social media content creation',
+          'Auto-posting and scheduling',
+          'Review management',
+          'Customer engagement',
+          'Brand reputation monitoring'
+        ],
+        icon: 'Megaphone',
         agents: [
           {
             id: 103,
@@ -85,6 +120,15 @@ export const niches: Niche[] = [
         name: 'Sales',
         description: 'Convert leads into paying customers faster',
         benefit: 'Increase revenue by 35% with smart upselling',
+        kpis: ['Revenue per Customer', 'Package Sales', 'Conversion Rate'],
+        tooltip: [
+          'Personalized service recommendations',
+          'Smart upselling',
+          'Package deals',
+          'Customer segmentation',
+          'Sales analytics'
+        ],
+        icon: 'DollarSign',
         agents: [
           {
             id: 105,
@@ -101,6 +145,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Streamline inventory and team management',
         benefit: 'Save 15 hours/week on admin tasks',
+        kpis: ['Admin Hours', 'Stockouts', 'Waste'],
+        tooltip: [
+          'Inventory tracking',
+          'Auto-reordering',
+          'Team scheduling',
+          'Supply chain management',
+          'Staff coordination'
+        ],
+        icon: 'ClipboardCheck',
         agents: [
           {
             id: 106,
@@ -117,6 +170,15 @@ export const niches: Niche[] = [
         name: 'Customer Experience',
         description: 'Build loyalty and retention',
         benefit: 'Increase repeat visits by 45%',
+        kpis: ['Repeat Rate', 'Referrals', 'Loyalty'],
+        tooltip: [
+          'Loyalty program management',
+          'Personalized offers',
+          'Referral rewards',
+          'Customer feedback',
+          'Retention campaigns'
+        ],
+        icon: 'Heart',
         agents: [
           {
             id: 107,
@@ -139,8 +201,17 @@ export const niches: Niche[] = [
       {
         id: 'admissions',
         name: 'Admissions',
-        description: 'Automate enrollment and student communication',
-        benefit: 'Enroll 40% more students with less effort',
+        description: 'Automate lead capture, screening, and follow-ups to increase enrollment rate.',
+        benefit: 'Enroll more students with less effort',
+        kpis: ['Conversion Rate', 'Time-to-Enroll', 'No-Show Rate'],
+        tooltip: [
+          'Lead capture from forms, WhatsApp/IG DMs',
+          'Interview scheduling',
+          'No-show recovery',
+          'Automated screening',
+          'Follow-up sequences'
+        ],
+        icon: 'ClipboardCheck',
         agents: [
           {
             id: 201,
@@ -149,14 +220,89 @@ export const niches: Niche[] = [
             kpis: ['+40% enrollment', '24/7 support', '-60% response time'],
             integrations: ['WhatsApp', 'Email', 'Calendar', 'CRM'],
             icon: '🎓'
+          },
+          {
+            id: 205,
+            name: 'Lead Qualifier',
+            valueProposition: 'Automatically screens and qualifies prospective students',
+            kpis: ['+50% qualified leads', '-70% screening time', 'Better fit students'],
+            integrations: ['CRM', 'Forms', 'Email', 'SMS'],
+            icon: '✅'
+          }
+        ]
+      },
+      {
+        id: 'marketing',
+        name: 'Marketing & Outreach',
+        description: 'Run data-driven ads, content, and email/SMS to attract the right students.',
+        benefit: 'Fill your pipeline with qualified applicants',
+        kpis: ['Cost per Lead', 'Lead Quality', 'Reach'],
+        tooltip: [
+          'Ad creatives and campaign management',
+          'Keyword/SEO optimization',
+          'Newsletter cadence',
+          'UTM analytics',
+          'Social media automation'
+        ],
+        icon: 'Megaphone',
+        agents: [
+          {
+            id: 206,
+            name: 'Student Acquisition AI',
+            valueProposition: 'Runs targeted campaigns to attract ideal student profiles',
+            kpis: ['-40% cost per lead', '+60% lead quality', '3x reach'],
+            integrations: ['Facebook Ads', 'Google Ads', 'Email', 'Analytics'],
+            icon: '🎯'
+          }
+        ]
+      },
+      {
+        id: 'teaching',
+        name: 'Teaching & Learning',
+        description: 'AI tutors, lesson planning, assessments, and personalized feedback.',
+        benefit: 'Improve learning outcomes at scale',
+        kpis: ['Test Scores', 'Completion Rate', 'Engagement'],
+        tooltip: [
+          'Syllabus builder',
+          'Quiz generator',
+          'Rubric grading',
+          'Tutor matching',
+          'Personalized learning paths'
+        ],
+        icon: 'BookOpen',
+        agents: [
+          {
+            id: 203,
+            name: 'AI Tutor',
+            valueProposition: 'Provides personalized homework help and practice exercises',
+            kpis: ['+30% test scores', 'Personalized learning', '24/7 tutoring'],
+            integrations: ['LMS', 'Google Classroom', 'Canvas'],
+            icon: '🧑‍🏫'
+          },
+          {
+            id: 207,
+            name: 'Assessment Generator',
+            valueProposition: 'Creates custom quizzes and auto-grades assignments',
+            kpis: ['-80% grading time', 'Instant feedback', 'Adaptive difficulty'],
+            integrations: ['LMS', 'Google Classroom', 'Moodle'],
+            icon: '📝'
           }
         ]
       },
       {
         id: 'student-support',
         name: 'Student Support',
-        description: 'Provide instant help to students and parents',
+        description: '24/7 answers for students/parents, proactive nudges, and case triage.',
         benefit: 'Reduce support workload by 50%',
+        kpis: ['Response Time', 'Ticket Deflection', 'CSAT'],
+        tooltip: [
+          '24/7 FAQ',
+          'Ticket routing',
+          'Wellbeing checks',
+          'Escalation rules',
+          'Parent communication'
+        ],
+        icon: 'Headphones',
         agents: [
           {
             id: 202,
@@ -169,26 +315,19 @@ export const niches: Niche[] = [
         ]
       },
       {
-        id: 'teaching',
-        name: 'Teaching',
-        description: 'Enhance learning with AI tutors',
-        benefit: 'Improve student performance by 30%',
-        agents: [
-          {
-            id: 203,
-            name: 'AI Tutor',
-            valueProposition: 'Provides personalized homework help and practice exercises',
-            kpis: ['+30% test scores', 'Personalized learning', '24/7 tutoring'],
-            integrations: ['LMS', 'Google Classroom', 'Canvas'],
-            icon: '🧑‍🏫'
-          }
-        ]
-      },
-      {
         id: 'operations',
-        name: 'Operations',
-        description: 'Simplify admin and scheduling',
-        benefit: 'Save 20 hours/week on admin work',
+        name: 'Operations & Scheduling',
+        description: 'Timetables, room allocation, instructor rosters, attendance, documentation.',
+        benefit: 'Save 20+ hours/week on admin',
+        kpis: ['Admin Hours', 'Utilization', 'Errors'],
+        tooltip: [
+          'Class calendars',
+          'Capacity planning',
+          'Attendance logs',
+          'Document automation',
+          'Instructor coordination'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 204,
@@ -197,6 +336,31 @@ export const niches: Niche[] = [
             kpis: ['Zero conflicts', '-80% scheduling time', 'Optimal capacity'],
             integrations: ['Calendar', 'Google Workspace', 'Zoom'],
             icon: '📆'
+          }
+        ]
+      },
+      {
+        id: 'finance',
+        name: 'Finance & Billing',
+        description: 'Automate invoicing, reminders, financial aid checks, and refunds.',
+        benefit: 'Fewer payment delays, clearer cash flow',
+        kpis: ['DSO', 'Collection Rate', 'Billing Errors'],
+        tooltip: [
+          'Invoice generation',
+          'Failed payment retries',
+          'Scholarship checks',
+          'Receipts',
+          'Financial reporting'
+        ],
+        icon: 'DollarSign',
+        agents: [
+          {
+            id: 208,
+            name: 'Billing Automator',
+            valueProposition: 'Generates invoices, sends reminders, and tracks payments',
+            kpis: ['-60% DSO', '+95% collection', 'Zero billing errors'],
+            integrations: ['Stripe', 'QuickBooks', 'Email', 'SMS'],
+            icon: '💳'
           }
         ]
       }
@@ -213,6 +377,15 @@ export const niches: Niche[] = [
         name: 'Lead Generation',
         description: 'Capture and qualify property leads automatically',
         benefit: 'Generate 3x more qualified leads',
+        kpis: ['Lead Volume', 'Qualification Rate', 'Response Time'],
+        tooltip: [
+          'Lead capture from multiple sources',
+          'Automated qualification',
+          'Property viewing scheduling',
+          'Lead scoring',
+          'Follow-up automation'
+        ],
+        icon: 'Home',
         agents: [
           {
             id: 301,
@@ -229,6 +402,15 @@ export const niches: Niche[] = [
         name: 'Client Communication',
         description: 'Stay in touch with buyers and sellers effortlessly',
         benefit: 'Never miss a follow-up again',
+        kpis: ['Response Rate', 'Follow-up Rate', 'Conversion Rate'],
+        tooltip: [
+          'Automated property updates',
+          'Lead nurturing',
+          'Personalized messaging',
+          'Follow-up reminders',
+          'Multi-channel communication'
+        ],
+        icon: 'Headphones',
         agents: [
           {
             id: 302,
@@ -245,6 +427,15 @@ export const niches: Niche[] = [
         name: 'Marketing',
         description: 'Promote listings with AI-powered campaigns',
         benefit: 'Sell properties 25% faster',
+        kpis: ['Listing Views', 'Time to Sale', 'Platform Reach'],
+        tooltip: [
+          'Automated ad creation',
+          'Multi-platform posting',
+          'Property photo optimization',
+          'Campaign analytics',
+          'Virtual tour management'
+        ],
+        icon: 'Megaphone',
         agents: [
           {
             id: 303,
@@ -261,6 +452,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Manage showings and paperwork efficiently',
         benefit: 'Save 10 hours/week on admin',
+        kpis: ['Admin Hours', 'No-Show Rate', 'Calendar Efficiency'],
+        tooltip: [
+          'Property tour scheduling',
+          'Automated reminders',
+          'Document management',
+          'Showing coordination',
+          'Calendar optimization'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 304,
@@ -285,6 +485,15 @@ export const niches: Niche[] = [
         name: 'Member Acquisition',
         description: 'Convert more trial members into paying customers',
         benefit: 'Increase memberships by 40%',
+        kpis: ['Conversion Rate', 'Sign-ups', 'Trial Completion'],
+        tooltip: [
+          'Trial member tracking',
+          'Personalized outreach',
+          'Membership plan recommendations',
+          'Follow-up automation',
+          'Conversion optimization'
+        ],
+        icon: 'Dumbbell',
         agents: [
           {
             id: 401,
@@ -301,6 +510,15 @@ export const niches: Niche[] = [
         name: 'Member Retention',
         description: 'Keep members engaged and reduce churn',
         benefit: 'Reduce churn by 35%',
+        kpis: ['Churn Rate', 'Check-in Frequency', 'Engagement'],
+        tooltip: [
+          'Workout reminders',
+          'Progress tracking',
+          'Milestone celebrations',
+          'Personalized motivation',
+          'At-risk member alerts'
+        ],
+        icon: 'Heart',
         agents: [
           {
             id: 402,
@@ -317,6 +535,15 @@ export const niches: Niche[] = [
         name: 'Training',
         description: 'Scale personal training with AI coaches',
         benefit: 'Train 3x more clients simultaneously',
+        kpis: ['Client Capacity', 'Program Quality', 'Results'],
+        tooltip: [
+          'Personalized workout plans',
+          'Progress monitoring',
+          'Exercise form guidance',
+          'Nutrition recommendations',
+          'Goal tracking'
+        ],
+        icon: 'BookOpen',
         agents: [
           {
             id: 403,
@@ -333,6 +560,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Automate class bookings and payments',
         benefit: 'Save 12 hours/week on admin',
+        kpis: ['Admin Hours', 'Booking Efficiency', 'Payment Collection'],
+        tooltip: [
+          'Class booking automation',
+          'Waitlist management',
+          'Payment processing',
+          'Attendance tracking',
+          'Capacity optimization'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 404,
@@ -357,6 +593,15 @@ export const niches: Niche[] = [
         name: 'Patient Acquisition',
         description: 'Attract new patients and fill your schedule',
         benefit: 'Add 30+ new patients monthly',
+        kpis: ['New Patients', 'Booking Rate', 'Conversion Rate'],
+        tooltip: [
+          'Insurance verification',
+          'First appointment booking',
+          'Patient education',
+          'Lead qualification',
+          '24/7 availability'
+        ],
+        icon: 'Smile',
         agents: [
           {
             id: 501,
@@ -373,6 +618,15 @@ export const niches: Niche[] = [
         name: 'Appointment Management',
         description: 'Keep your schedule full and reduce no-shows',
         benefit: 'Reduce no-shows by 55%',
+        kpis: ['No-Show Rate', 'Utilization', 'Rescheduling'],
+        tooltip: [
+          'Automated reminders',
+          'Rescheduling automation',
+          'Gap filling',
+          'Waitlist management',
+          'Calendar optimization'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 502,
@@ -389,6 +643,15 @@ export const niches: Niche[] = [
         name: 'Patient Care',
         description: 'Improve treatment follow-through and satisfaction',
         benefit: 'Increase treatment acceptance by 40%',
+        kpis: ['Treatment Acceptance', 'Referrals', 'Outcomes'],
+        tooltip: [
+          'Treatment education',
+          'Post-visit follow-ups',
+          'Patient questions',
+          'Care instructions',
+          'Outcome tracking'
+        ],
+        icon: 'Heart',
         agents: [
           {
             id: 503,
@@ -405,6 +668,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Streamline insurance and billing',
         benefit: 'Save 15 hours/week on paperwork',
+        kpis: ['Admin Hours', 'Claim Denials', 'Verification Time'],
+        tooltip: [
+          'Insurance verification',
+          'Pre-authorization',
+          'Claim management',
+          'Billing automation',
+          'Coverage checks'
+        ],
+        icon: 'ClipboardCheck',
         agents: [
           {
             id: 504,
@@ -429,6 +701,15 @@ export const niches: Niche[] = [
         name: 'Patient Scheduling',
         description: 'Optimize appointment flow and reduce wait times',
         benefit: 'See 20% more patients with same staff',
+        kpis: ['Capacity', 'Wait Times', 'Scheduling Efficiency'],
+        tooltip: [
+          'Appointment booking',
+          'Urgent case handling',
+          'Provider schedule optimization',
+          'Patient flow management',
+          'Wait time reduction'
+        ],
+        icon: 'Calendar',
         agents: [
           {
             id: 601,
@@ -445,6 +726,15 @@ export const niches: Niche[] = [
         name: 'Patient Communication',
         description: 'Stay connected with patients between visits',
         benefit: 'Improve outcomes and reduce readmissions',
+        kpis: ['Readmissions', 'Adherence', 'Patient Engagement'],
+        tooltip: [
+          'Medication reminders',
+          'Symptom checks',
+          'Follow-up scheduling',
+          'Care plan support',
+          'Proactive outreach'
+        ],
+        icon: 'Headphones',
         agents: [
           {
             id: 602,
@@ -461,6 +751,15 @@ export const niches: Niche[] = [
         name: 'Triage',
         description: 'Screen patients and route urgent cases',
         benefit: 'Prioritize critical cases instantly',
+        kpis: ['Urgent Detection', 'Triage Time', 'Care Routing'],
+        tooltip: [
+          'Symptom assessment',
+          'Urgency classification',
+          'Care routing',
+          'Emergency protocols',
+          'Provider matching'
+        ],
+        icon: 'ClipboardCheck',
         agents: [
           {
             id: 603,
@@ -477,6 +776,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Reduce admin burden on staff',
         benefit: 'Save 25 hours/week on documentation',
+        kpis: ['Documentation Time', 'Compliance', 'Efficiency'],
+        tooltip: [
+          'Visit note generation',
+          'Voice-to-text documentation',
+          'Chart completion',
+          'HIPAA compliance',
+          'Template automation'
+        ],
+        icon: 'BookOpen',
         agents: [
           {
             id: 604,
@@ -501,6 +809,15 @@ export const niches: Niche[] = [
         name: 'Lead Management',
         description: 'Capture and qualify car buyers instantly',
         benefit: 'Convert 45% more leads into test drives',
+        kpis: ['Test Drives', 'Response Time', 'Conversion Rate'],
+        tooltip: [
+          'Website visitor engagement',
+          'Budget qualification',
+          'Needs assessment',
+          'Test drive scheduling',
+          'Lead scoring'
+        ],
+        icon: 'Car',
         agents: [
           {
             id: 701,
@@ -517,6 +834,15 @@ export const niches: Niche[] = [
         name: 'Sales',
         description: 'Close more deals with AI sales support',
         benefit: 'Increase sales by 25%',
+        kpis: ['Sales Volume', 'Deal Value', 'Close Rate'],
+        tooltip: [
+          'Financing options',
+          'Trade-in valuations',
+          'Add-on recommendations',
+          'Payment calculations',
+          'Deal structuring'
+        ],
+        icon: 'DollarSign',
         agents: [
           {
             id: 702,
@@ -533,6 +859,15 @@ export const niches: Niche[] = [
         name: 'Customer Service',
         description: 'Build loyalty with post-sale support',
         benefit: 'Increase repeat buyers by 40%',
+        kpis: ['Service Bookings', 'Repeat Customers', 'Loyalty'],
+        tooltip: [
+          'Maintenance scheduling',
+          'Recall alerts',
+          'Service promotions',
+          'Customer retention',
+          'Lifetime value optimization'
+        ],
+        icon: 'Headphones',
         agents: [
           {
             id: 703,
@@ -549,6 +884,15 @@ export const niches: Niche[] = [
         name: 'Operations',
         description: 'Manage inventory and pricing dynamically',
         benefit: 'Optimize pricing and turnover',
+        kpis: ['Lot Time', 'Pricing', 'Margins'],
+        tooltip: [
+          'Inventory tracking',
+          'Dynamic pricing',
+          'Aging stock alerts',
+          'Market analysis',
+          'Turnover optimization'
+        ],
+        icon: 'ClipboardCheck',
         agents: [
           {
             id: 704,
@@ -571,5 +915,11 @@ export const iconMap = {
   Dumbbell,
   Smile,
   Heart,
-  Car
+  Car,
+  ClipboardCheck,
+  Megaphone,
+  BookOpen,
+  Headphones,
+  Calendar,
+  DollarSign
 };
