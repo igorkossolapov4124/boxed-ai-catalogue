@@ -10,14 +10,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { niches, iconMap } from '@/data/niches';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 const NicheDetail = () => {
   const { nicheId } = useParams();
@@ -40,21 +32,6 @@ const NicheDetail = () => {
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/niches">Niches</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{niche.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-
         <div className="flex gap-8">
           {/* Main Content */}
           <div className="flex-1">
