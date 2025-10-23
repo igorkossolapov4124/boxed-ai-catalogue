@@ -93,57 +93,65 @@ const DepartmentAgents = () => {
 
         {/* Agents List */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">
-            Available AI Agents ({department.agents.length})
+          <h2 className="text-2xl font-bold mb-8">
+            Available AI Agents
           </h2>
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {department.agents.map((agent) => (
-              <Card key={agent.id} className="hover:shadow-card-hover transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4 flex-1">
-                      <div className="text-4xl">{agent.icon}</div>
-                      <div className="flex-1">
-                        <CardTitle className="text-2xl mb-2">{agent.name}</CardTitle>
-                        <p className="text-muted-foreground mb-4">
-                          {agent.valueProposition}
-                        </p>
+              <Card key={agent.id} className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50">
+                {/* Hero Image Area */}
+                <div className="aspect-[4/3] bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center">
+                  <div className="text-7xl opacity-80">{agent.icon}</div>
+                </div>
 
-                        {/* KPIs */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {agent.kpis.map((kpi, idx) => (
-                            <Badge key={idx} variant="outline" className="flex items-center gap-1">
-                              <CheckCircle2 className="w-3 h-3" />
-                              {kpi}
-                            </Badge>
-                          ))}
-                        </div>
+                <CardContent className="p-6 flex flex-col gap-4">
+                  {/* Category Tag */}
+                  <Badge variant="secondary" className="text-[10px] font-normal uppercase tracking-wide w-fit">
+                    {department.name}
+                  </Badge>
 
-                        {/* Integrations */}
-                        <div className="mb-4">
-                          <p className="text-sm font-medium mb-2">Integrations:</p>
-                          <div className="flex flex-wrap gap-2">
-                            {agent.integrations.map((integration, idx) => (
-                              <Badge key={idx} variant="secondary">
-                                {integration}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* CTA */}
-                    <div className="flex flex-col gap-2">
-                      <Button className="gradient-button">
-                        Install Agent
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Schedule Implementation
-                      </Button>
-                    </div>
+                  {/* Agent Name */}
+                  <h3 className="text-xl font-bold leading-tight">
+                    {agent.name}
+                  </h3>
+
+                  {/* Value Line - shortened */}
+                  <p className="text-sm font-medium text-foreground/80 leading-relaxed">
+                    {agent.valueProposition.split('.')[0]}.
+                  </p>
+
+                  {/* Micro Highlights (KPIs as pills) */}
+                  <div className="flex flex-wrap gap-2">
+                    {agent.kpis.slice(0, 3).map((kpi, idx) => (
+                      <Badge key={idx} variant="outline" className="text-xs font-normal px-2.5 py-0.5">
+                        {kpi}
+                      </Badge>
+                    ))}
                   </div>
-                </CardHeader>
+
+                  {/* Integrations (icons only, grayscale) */}
+                  <div className="flex items-center gap-2 pt-2">
+                    {agent.integrations.slice(0, 5).map((integration, idx) => (
+                      <div 
+                        key={idx} 
+                        className="w-8 h-8 rounded-md bg-muted/50 flex items-center justify-center text-[9px] font-medium text-muted-foreground grayscale hover:grayscale-0 transition-all"
+                        title={integration}
+                      >
+                        {integration.substring(0, 2).toUpperCase()}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="flex flex-col gap-3 mt-2">
+                    <Button className="w-full" size="default">
+                      Install Agent
+                    </Button>
+                    <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors text-center">
+                      Learn More →
+                    </button>
+                  </div>
+                </CardContent>
               </Card>
             ))}
           </div>
