@@ -86,9 +86,9 @@ const DepartmentAgents = () => {
                     {agent.name}
                   </h3>
 
-                  {/* Value Line - shortened */}
+                  {/* Value Line - JTBD result statement */}
                   <p className="text-sm font-medium text-foreground/80 leading-relaxed">
-                    {agent.valueProposition.split('.')[0]}.
+                    {agent.valueProposition}
                   </p>
 
                   {/* Micro Highlights (KPIs as pills) */}

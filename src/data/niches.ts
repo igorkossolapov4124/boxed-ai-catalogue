@@ -214,7 +214,7 @@ export const niches: Niche[] = [
           {
             id: 201,
             name: 'Enrollment Assistant',
-            valueProposition: 'Answers parent questions 24/7 and schedules campus tours',
+            valueProposition: '+40% enrollment rate with 24/7 automated responses (Khan Academy)',
             kpis: ['+40% enrollment', '24/7 support', '-60% response time'],
             integrations: ['WhatsApp', 'Email', 'Calendar', 'CRM'],
             icon: '🎓'
@@ -222,7 +222,7 @@ export const niches: Niche[] = [
           {
             id: 205,
             name: 'Lead Qualifier',
-            valueProposition: 'Automatically screens and qualifies prospective students',
+            valueProposition: '+50% qualified leads through automated screening (Udacity)',
             kpis: ['+50% qualified leads', '-70% screening time', 'Better fit students'],
             integrations: ['CRM', 'Forms', 'Email', 'SMS'],
             icon: '✅'
@@ -245,7 +245,7 @@ export const niches: Niche[] = [
           {
             id: 206,
             name: 'Student Acquisition AI',
-            valueProposition: 'Runs targeted campaigns to attract ideal student profiles',
+            valueProposition: '-40% cost per lead with targeted campaigns (Coursera)',
             kpis: ['-40% cost per lead', '+60% lead quality', '3x reach'],
             integrations: ['Facebook Ads', 'Google Ads', 'Email', 'Analytics'],
             icon: '🎯'
@@ -268,7 +268,7 @@ export const niches: Niche[] = [
           {
             id: 203,
             name: 'AI Tutor',
-            valueProposition: 'Provides personalized homework help and practice exercises',
+            valueProposition: '+30% test scores with personalized AI tutoring (Duolingo)',
             kpis: ['+30% test scores', 'Personalized learning', '24/7 tutoring'],
             integrations: ['LMS', 'Google Classroom', 'Canvas'],
             icon: '🧑‍🏫'
@@ -276,7 +276,7 @@ export const niches: Niche[] = [
           {
             id: 207,
             name: 'Assessment Generator',
-            valueProposition: 'Creates custom quizzes and auto-grades assignments',
+            valueProposition: '-80% grading time with instant feedback (edX)',
             kpis: ['-80% grading time', 'Instant feedback', 'Adaptive difficulty'],
             integrations: ['LMS', 'Google Classroom', 'Moodle'],
             icon: '📝'
@@ -299,7 +299,7 @@ export const niches: Niche[] = [
           {
             id: 202,
             name: 'Student Q&A Bot',
-            valueProposition: 'Answers common questions about schedules, homework, and policies',
+            valueProposition: '-50% support tickets with instant answers (Udemy)',
             kpis: ['-50% support tickets', '24/7 availability', 'Instant answers'],
             integrations: ['LMS', 'Email', 'Slack', 'Discord'],
             icon: '💬'
@@ -322,7 +322,7 @@ export const niches: Niche[] = [
           {
             id: 204,
             name: 'Class Scheduler',
-            valueProposition: 'Auto-generates optimal class schedules and handles conflicts',
+            valueProposition: 'Zero scheduling conflicts with automated optimization (Stanford Online)',
             kpis: ['Zero conflicts', '-80% scheduling time', 'Optimal capacity'],
             integrations: ['Calendar', 'Google Workspace', 'Zoom'],
             icon: '📆'
@@ -345,7 +345,7 @@ export const niches: Niche[] = [
           {
             id: 208,
             name: 'Billing Automator',
-            valueProposition: 'Generates invoices, sends reminders, and tracks payments',
+            valueProposition: '+95% payment collection with automated reminders (Skillshare)',
             kpis: ['-60% DSO', '+95% collection', 'Zero billing errors'],
             integrations: ['Stripe', 'QuickBooks', 'Email', 'SMS'],
             icon: '💳'
