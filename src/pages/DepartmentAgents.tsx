@@ -134,11 +134,9 @@ const DepartmentAgents = () => {
                     {agent.integrations.slice(0, 5).map((integration, idx) => (
                       <div 
                         key={idx} 
-                        className="w-8 h-8 rounded-md bg-muted/50 flex items-center justify-center text-[9px] font-medium text-muted-foreground grayscale hover:grayscale-0 transition-all"
+                        className="w-8 h-8 rounded-md bg-muted/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all"
                         title={integration}
-                      >
-                        {integration.substring(0, 2).toUpperCase()}
-                      </div>
+                      />
                     ))}
                   </div>
 
