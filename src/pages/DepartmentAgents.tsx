@@ -1,17 +1,9 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { niches, iconMap } from '@/data/niches';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 const DepartmentAgents = () => {
   const { nicheId, departmentId } = useParams();
@@ -36,27 +28,6 @@ const DepartmentAgents = () => {
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/niches">Niches</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to={`/niche/${nicheId}`}>{niche.name}</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{department.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-
         {/* Header */}
         <div className="mb-12">
           <Button
@@ -126,17 +97,6 @@ const DepartmentAgents = () => {
                       <Badge key={idx} variant="outline" className="text-xs font-normal px-2.5 py-0.5">
                         {kpi}
                       </Badge>
-                    ))}
-                  </div>
-
-                  {/* Integrations (icons only, grayscale) */}
-                  <div className="flex items-center gap-2 pt-2">
-                    {agent.integrations.slice(0, 5).map((integration, idx) => (
-                      <div 
-                        key={idx} 
-                        className="w-8 h-8 rounded-md bg-muted/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all"
-                        title={integration}
-                      />
                     ))}
                   </div>
 
