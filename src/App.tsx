@@ -10,7 +10,9 @@ import IdeaDetail from "./pages/IdeaDetail";
 import CheckoutJson from "./pages/CheckoutJson";
 import Integration from "./pages/Integration";
 import Marketplace from "./pages/Marketplace";
-import Categories from "./pages/Categories";
+import Niches from "./pages/Niches";
+import NicheDetail from "./pages/NicheDetail";
+import DepartmentAgents from "./pages/DepartmentAgents";
 import AgentDetail from "./pages/AgentDetail";
 import NotFound from "./pages/NotFound";
 
@@ -31,7 +33,9 @@ const App = () => (
             <Route path="/checkout/json/:id" element={<CheckoutJson />} />
             <Route path="/integration" element={<Integration />} />
             <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/categories" element={<Categories />} />
+            <Route path="/niches" element={<Niches />} />
+            <Route path="/niche/:nicheId" element={<NicheDetail />} />
+            <Route path="/niche/:nicheId/department/:departmentId" element={<DepartmentAgents />} />
             <Route path="/agent/:id" element={<AgentDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

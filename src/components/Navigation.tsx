@@ -19,7 +19,7 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'Ideas', href: '/ideas' },
-    { name: 'Categories', href: '/categories' },
+    { name: 'Niches', href: '/niches' },
     { name: 'JSON & Services', href: '/pricing' }
   ];
 
