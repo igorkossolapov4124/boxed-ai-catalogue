@@ -4,11 +4,22 @@ import { ArrowRight } from 'lucide-react';
 import { niches, iconMap } from '@/data/niches';
 
 const Niches = () => {
+  // Benefit copy for each niche
+  const nicheBenefits: Record<string, string> = {
+    beauty: 'AI tools for salons and beauty studios',
+    education: 'AI tools for schools and courses',
+    'real-estate': 'AI tools for real estate businesses',
+    fitness: 'AI tools for gyms and trainers',
+    dental: 'AI tools for dental practices',
+    healthcare: 'AI tools for clinics and medical centers',
+    'car-retail': 'AI tools for car dealerships'
+  };
+
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h1 className="text-3xl lg:text-4xl font-bold mb-4">
             Choose Your Business Niche
           </h1>
@@ -18,44 +29,37 @@ const Niches = () => {
         </div>
 
         {/* Niches Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {niches.map((niche) => {
             const IconComponent = iconMap[niche.icon as keyof typeof iconMap];
-            const totalAgents = niche.departments.reduce((sum, dept) => sum + dept.agents.length, 0);
             
             return (
               <Link
                 key={niche.id}
                 to={`/niche/${niche.id}`}
-                className="group"
+                className="group block"
               >
-                <Card className="h-full transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1">
-                  <CardContent className="p-8">
-                    {/* Icon */}
-                    <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mb-6 group-hover:shadow-glow transition-all duration-300">
-                      <IconComponent className="w-8 h-8 text-white" />
+                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50">
+                  <CardContent className="p-8 flex flex-col h-full gap-6">
+                    {/* Icon - larger, Apple-style */}
+                    <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center">
+                      <IconComponent className="w-9 h-9 text-primary" />
                     </div>
 
-                    {/* Niche Name */}
-                    <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                    {/* Title - bolder */}
+                    <h3 className="text-xl font-bold leading-tight">
                       {niche.name}
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-sm text-muted-foreground mb-6">
-                      {niche.description}
+                    {/* Benefit Line - medium weight */}
+                    <p className="text-base font-medium text-foreground/80 leading-relaxed">
+                      {nicheBenefits[niche.id]}
                     </p>
 
-                    {/* Stats */}
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="text-sm text-muted-foreground">Available Agents</span>
-                      <span className="text-sm font-medium">{totalAgents}</span>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="flex items-center text-sm font-medium text-primary group-hover:text-primary-dark transition-colors">
-                      Explore {niche.name}
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    {/* CTA - minimal, bottom */}
+                    <div className="mt-auto flex items-center text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                      Explore
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
                     </div>
                   </CardContent>
                 </Card>
