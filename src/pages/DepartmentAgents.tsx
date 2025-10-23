@@ -44,14 +44,9 @@ const DepartmentAgents = () => {
               <IconComponent className="w-8 h-8 text-white" />
             </div>
             <div>
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl lg:text-4xl font-bold">
-                  {department.name}
-                </h1>
-                <Badge variant="secondary" className="text-xs">
-                  {niche.name}
-                </Badge>
-              </div>
+              <h1 className="text-3xl lg:text-4xl font-bold mb-2">
+                {department.name}
+              </h1>
               <p className="text-lg font-medium text-primary mb-2">
                 {department.benefit}
               </p>
