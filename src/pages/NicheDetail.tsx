@@ -86,9 +86,9 @@ const NicheDetail = () => {
 
             {/* Departments Grid */}
             <div>
-              <h2 className="text-2xl font-bold mb-6">Choose a Department</h2>
+              <h2 className="text-2xl font-bold mb-8">Choose a Department</h2>
               <TooltipProvider>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {niche.departments.map((department) => {
                     const DeptIcon = iconMap[department.icon as keyof typeof iconMap];
                     
@@ -99,77 +99,52 @@ const NicheDetail = () => {
                             to={`/niche/${nicheId}/department/${department.id}`}
                             className="group block"
                           >
-                            <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
-                              <CardContent className="p-6 flex flex-col h-full">
-                                {/* Icon with colored background */}
-                                <div className="mb-5">
-                                  <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
-                                    <DeptIcon className="w-7 h-7 text-primary" />
-                                  </div>
+                            <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50">
+                              <CardContent className="p-8 flex flex-col h-full gap-6">
+                                {/* Icon - larger, Apple-style */}
+                                <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center">
+                                  <DeptIcon className="w-9 h-9 text-primary" />
                                 </div>
 
-                                {/* Title */}
-                                <h3 className="text-lg font-bold mb-3">
+                                {/* Title - bolder */}
+                                <h3 className="text-xl font-bold leading-tight">
                                   {department.name}
                                 </h3>
 
-                                {/* Benefit/Value Line */}
-                                <div className="mb-3">
-                                  <p className="text-sm font-semibold text-primary">
-                                    {department.benefit}
-                                  </p>
-                                </div>
-
-                                {/* Short Description */}
-                                <p className="text-sm text-muted-foreground mb-4">
-                                  {department.description}
+                                {/* Benefit Line - medium weight */}
+                                <p className="text-base font-medium text-foreground/80 leading-relaxed">
+                                  {department.benefit}
                                 </p>
 
-                                {/* 3 Bullet Points */}
-                                <ul className="text-xs text-muted-foreground space-y-2 mb-5">
-                                  {department.tooltip.map((item, idx) => (
-                                    <li key={idx} className="flex items-start">
-                                      <span className="mr-2">•</span>
-                                      <span>{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-
-                                {/* KPI Badges (max 2) */}
-                                <div className="flex flex-wrap gap-2 mb-3">
+                                {/* KPI Chips - subtle, max 2 */}
+                                <div className="flex flex-wrap gap-2">
                                   {department.kpis.slice(0, 2).map((kpi, idx) => (
-                                    <Badge key={idx} variant="secondary" className="text-xs font-medium">
+                                    <Badge key={idx} variant="secondary" className="text-xs font-normal px-3 py-1">
                                       {kpi}
                                     </Badge>
                                   ))}
                                 </div>
 
-                                {/* Available Agents - smaller text */}
-                                <div className="mb-4">
-                                  <span className="text-[10px] text-muted-foreground">
-                                    {department.agents.length} solution{department.agents.length !== 1 ? 's' : ''} available
-                                  </span>
-                                </div>
-
-                                {/* CTA - always bottom-right */}
-                                <div className="mt-auto flex justify-end">
-                                  <div className="flex items-center text-sm font-semibold text-primary group-hover:text-primary-dark transition-colors">
-                                    See Solutions
-                                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                                  </div>
+                                {/* CTA - minimal, bottom */}
+                                <div className="mt-auto flex items-center text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                                  Explore
+                                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
                                 </div>
                               </CardContent>
                             </Card>
                           </Link>
                         </TooltipTrigger>
-                        <TooltipContent side="top" className="max-w-xs">
-                          <div className="space-y-2">
+                        <TooltipContent side="top" className="max-w-xs p-4">
+                          <div className="space-y-3">
                             <p className="font-semibold text-sm">What this covers:</p>
-                            <ul className="text-xs space-y-1">
+                            <ul className="text-xs space-y-2 text-muted-foreground">
                               {department.tooltip.map((item, idx) => (
                                 <li key={idx}>• {item}</li>
                               ))}
                             </ul>
+                            <p className="text-[10px] text-muted-foreground pt-2 border-t border-border/50">
+                              {department.agents.length} solution{department.agents.length !== 1 ? 's' : ''} available
+                            </p>
                           </div>
                         </TooltipContent>
                       </Tooltip>

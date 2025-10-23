@@ -201,8 +201,8 @@ export const niches: Niche[] = [
       {
         id: 'admissions',
         name: 'Admissions & Enrollment',
-        description: 'Automate lead capture, follow-ups, reminders, and enrollment.',
-        benefit: 'Get more student enrollments with less manual work',
+        description: '',
+        benefit: 'Increase student sign-ups with less effort',
         kpis: ['More Enrollments', 'Faster Sign-Ups'],
         tooltip: [
           'Auto-capture leads from forms + DMs',
@@ -232,9 +232,9 @@ export const niches: Niche[] = [
       {
         id: 'marketing',
         name: 'Marketing & Outreach',
-        description: 'Run content, ads, email/SMS — all automated.',
-        benefit: 'Bring in more student leads every week',
-        kpis: ['Lower Cost per Lead', 'More Leads'],
+        description: '',
+        benefit: 'Get more student leads every week',
+        kpis: ['More Leads', 'Lower CPL'],
         tooltip: [
           'Social content & email campaigns',
           'Automated ads & tracking',
@@ -255,9 +255,9 @@ export const niches: Niche[] = [
       {
         id: 'teaching',
         name: 'Teaching & Learning',
-        description: 'AI lesson prep, tutoring, assessments, and feedback.',
-        benefit: 'Improve learning results with less teacher effort',
-        kpis: ['Higher Completion', 'Better Scores'],
+        description: '',
+        benefit: 'Improve learning results with less work',
+        kpis: ['Better Scores', 'Higher Completion'],
         tooltip: [
           'AI-assisted lesson plans & quizzes',
           'Personalized AI tutoring',
@@ -286,7 +286,7 @@ export const niches: Niche[] = [
       {
         id: 'student-support',
         name: 'Student & Parent Support',
-        description: 'Instant answers for parents/students + proactive nudges.',
+        description: '',
         benefit: '24/7 support without extra staff',
         kpis: ['Faster Replies', 'Happier Families'],
         tooltip: [
@@ -309,9 +309,9 @@ export const niches: Niche[] = [
       {
         id: 'operations',
         name: 'Operations & Scheduling',
-        description: 'Timetables, attendance, documents — automated.',
-        benefit: 'Save 20+ hours/week on admin & scheduling',
-        kpis: ['Less Admin Time', 'Fewer Errors'],
+        description: '',
+        benefit: 'Save 20+ hours on admin weekly',
+        kpis: ['Less Admin', 'Fewer Errors'],
         tooltip: [
           'Class & teacher scheduling',
           'Attendance & documentation',
@@ -332,9 +332,9 @@ export const niches: Niche[] = [
       {
         id: 'finance',
         name: 'Billing & Payments',
-        description: 'Invoices, reminders, financial aid checks, and refunds.',
-        benefit: 'On-time payments with fewer issues',
-        kpis: ['Faster Payments', 'Fewer Payment Issues'],
+        description: '',
+        benefit: 'Get paid on time with less friction',
+        kpis: ['Faster Payments', 'Fewer Issues'],
         tooltip: [
           'Automatic invoices & receipts',
           'Payment reminders & failed payment recovery',
