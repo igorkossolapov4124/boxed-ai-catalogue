@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { niches, iconMap } from '@/data/niches';
-import { CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
+import { CheckCircle2, Sparkles, ExternalLink, Building2, Users, Bot, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 type Step = 'greeting' | 'niche' | 'role' | 'agents' | 'booking';
@@ -31,13 +31,28 @@ const OnboardingHero = () => {
     {
       id: '1',
       role: 'assistant',
-      content: "Hey! I'll help you assemble a personalized AI team that strengthens your employees without hiring more staff. Ready to start?"
+      content: "Hey! I'll help you assemble a personalized AI team. Ready to start?"
     }
   ]);
   const [selectedNiche, setSelectedNiche] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [selectedAgents, setSelectedAgents] = useState<SelectedAgent[]>([]);
   const [bookingData, setBookingData] = useState({ name: '', email: '', phone: '' });
+  const [showCelebration, setShowCelebration] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const triggerCelebration = () => {
+    setShowCelebration(true);
+    setTimeout(() => setShowCelebration(false), 1500);
+  };
 
   const addMessage = (role: 'assistant' | 'user', content: string) => {
     setMessages(prev => [...prev, { id: Date.now().toString(), role, content }]);
@@ -54,18 +69,17 @@ const OnboardingHero = () => {
   const handleNicheSelect = (nicheId: string, nicheName: string) => {
     setSelectedNiche(nicheId);
     addMessage('user', nicheName);
+    triggerCelebration();
     setTimeout(() => {
-      addMessage('assistant', 'Great. I have AI team members already working in this industry.');
-      setTimeout(() => {
-        addMessage('assistant', 'Who do you want to empower first with AI?');
-        setStep('role');
-      }, 800);
-    }, 500);
+      addMessage('assistant', 'Perfect! Who do you want to empower first with AI?');
+      setStep('role');
+    }, 600);
   };
 
   const handleRoleSelect = (departmentName: string) => {
     setSelectedRole(departmentName);
     addMessage('user', departmentName);
+    triggerCelebration();
     
     // Get recommended agents from selected niche and role
     const niche = niches.find(n => n.id === selectedNiche);
@@ -82,10 +96,10 @@ const OnboardingHero = () => {
     }
 
     setTimeout(() => {
-      addMessage('assistant', `Perfect. I'll recommend a few AI team members that can support your ${departmentName} right away.`);
+      addMessage('assistant', `Here are AI team members for your ${departmentName}:`);
       setTimeout(() => {
         setStep('agents');
-      }, 800);
+      }, 600);
     }, 500);
   };
 
@@ -101,25 +115,24 @@ const OnboardingHero = () => {
 
   const handleProceedToBooking = () => {
     const roleName = selectedRole || 'team';
-    addMessage('user', 'Book Integration Call');
+    addMessage('user', 'Continue');
+    triggerCelebration();
     setTimeout(() => {
-      addMessage('assistant', `Great choices — these AI team members will save your ${roleName} 20+ hours/month.`);
-      setTimeout(() => {
-        addMessage('assistant', 'Want us to connect this AI team to your business with your current tools in 48 hours?');
-        setStep('booking');
-      }, 800);
-    }, 500);
+      addMessage('assistant', `Your AI Team is ready! Want us to integrate these AI team members into your business for you?`);
+      setStep('booking');
+    }, 600);
   };
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    triggerCelebration();
     toast({
-      title: "Booking Requested!",
-      description: "We'll contact you within 24 hours to schedule your integration call.",
+      title: "Booking Confirmed!",
+      description: "We'll contact you within 24 hours.",
     });
-    addMessage('user', `Booked consultation (${bookingData.name})`);
+    addMessage('user', 'Booked Integration Call');
     setTimeout(() => {
-      addMessage('assistant', "Perfect! We'll contact you within 24 hours to schedule your integration call. Looking forward to building your AI team!");
+      addMessage('assistant', "Perfect! We'll reach out within 24 hours to schedule your integration. Welcome to your AI team!");
     }, 500);
   };
 
@@ -289,12 +302,12 @@ const OnboardingHero = () => {
               </Button>
               <Button 
                 type="button"
-                variant="outline" 
+                variant="ghost" 
                 size="lg" 
                 className="w-full"
                 asChild
               >
-                <Link to="/niches">I'll try myself first</Link>
+                <Link to="/niches">I'll set them up myself</Link>
               </Button>
             </form>
           </div>
@@ -305,134 +318,98 @@ const OnboardingHero = () => {
     }
   };
 
+  // Milestone badges data
+  const milestones = [
+    { id: 'niche', label: 'Business Field', icon: Building2, completed: !!selectedNiche },
+    { id: 'role', label: 'Role to Empower', icon: Users, completed: !!selectedRole },
+    { id: 'agents', label: 'AI Team Members', icon: Bot, completed: selectedAgents.length > 0 },
+    { id: 'booking', label: 'Integration Call', icon: Calendar, completed: step === 'booking' && bookingData.name !== '' }
+  ];
+
   return (
-    <section className="py-16 lg:py-24 bg-gradient-hero">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="py-16 lg:py-24 bg-gradient-hero min-h-screen flex items-center">
+      <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight mb-4">
+        <div className="text-center mb-8 animate-fade-in">
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight mb-3">
             Build Your AI Team in <span className="text-primary">60 Seconds</span>
           </h1>
-          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Answer a few questions and get a personalized AI team for your company.
+          <p className="text-base lg:text-lg text-muted-foreground">
+            A guided chat to assemble your AI team in a few quick steps.
           </p>
         </div>
 
-        {/* Chat Interface */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Left: Conversation */}
-          <div className="order-2 lg:order-1">
-            <Card className="border-border shadow-card">
-              <CardContent className="p-6">
-                {/* Messages */}
-                <div className="space-y-4 mb-6 max-h-[500px] overflow-y-auto">
-                  {messages.map((message) => (
+        {/* Gamified Progress Badges */}
+        <div className="mb-8 animate-fade-in animation-delay-100">
+          <div className="flex justify-center gap-3 flex-wrap">
+            {milestones.map((milestone, index) => {
+              const Icon = milestone.icon;
+              return (
+                <div
+                  key={milestone.id}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-500 ${
+                    milestone.completed
+                      ? 'bg-primary text-primary-foreground shadow-blue animate-scale-in'
+                      : 'bg-muted/50 text-muted-foreground'
+                  }`}
+                  style={{ animationDelay: milestone.completed ? '0ms' : '0ms' }}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="text-xs font-medium whitespace-nowrap">{milestone.label}</span>
+                  {milestone.completed && (
+                    <CheckCircle2 className="w-4 h-4 animate-scale-in" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Celebration Animation */}
+        {showCelebration && (
+          <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+            <div className="animate-scale-in">
+              <Sparkles className="w-16 h-16 text-primary animate-pulse" />
+            </div>
+          </div>
+        )}
+
+        {/* Full-Width Chat Interface */}
+        <div className="animate-fade-in animation-delay-200">
+          <Card className="border-border shadow-card-hover bg-card">
+            <CardContent className="p-6 lg:p-8">
+              {/* Messages */}
+              <div className="space-y-4 mb-6 max-h-[500px] overflow-y-auto scroll-smooth">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex gap-3 animate-fade-in ${
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
+                    }`}
+                  >
+                    {message.role === 'assistant' && (
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-5 h-5 text-primary" />
+                      </div>
+                    )}
                     <div
-                      key={message.id}
-                      className={`flex gap-3 ${
-                        message.role === 'user' ? 'justify-end' : 'justify-start'
+                      className={`px-5 py-3 rounded-2xl max-w-[85%] ${
+                        message.role === 'assistant'
+                          ? 'bg-muted text-foreground'
+                          : 'bg-primary text-primary-foreground'
                       }`}
                     >
-                      {message.role === 'assistant' && (
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-4 h-4 text-primary" />
-                        </div>
-                      )}
-                      <div
-                        className={`px-4 py-3 rounded-2xl max-w-[80%] ${
-                          message.role === 'assistant'
-                            ? 'bg-muted text-foreground'
-                            : 'bg-primary text-primary-foreground'
-                        }`}
-                      >
-                        <p className="text-sm leading-relaxed">{message.content}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Interactive Options */}
-                {renderStepContent()}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Right: Preview */}
-          <div className="order-1 lg:order-2 animate-fade-in animation-delay-200">
-            <Card className="border-border shadow-card bg-gradient-card">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  Your AI Team Progress
-                </h3>
-                
-                <div className="space-y-4">
-                  {/* Niche */}
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      selectedNiche ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                    }`}>
-                      {selectedNiche ? '✓' : '1'}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Business Field</p>
-                      {selectedNiche && (
-                        <p className="text-xs text-muted-foreground">
-                          {niches.find(n => n.id === selectedNiche)?.name}
-                        </p>
-                      )}
+                      <p className="text-sm lg:text-base leading-relaxed">{message.content}</p>
                     </div>
                   </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
 
-                  {/* Role */}
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      selectedRole ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                    }`}>
-                      {selectedRole ? '✓' : '2'}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Role to Empower</p>
-                      {selectedRole && (
-                        <p className="text-xs text-muted-foreground">{selectedRole}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Agents */}
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      selectedAgents.length > 0 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                    }`}>
-                      {selectedAgents.length > 0 ? '✓' : '3'}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">AI Team Members</p>
-                      {selectedAgents.length > 0 && (
-                        <p className="text-xs text-muted-foreground">
-                          {selectedAgents.length} selected
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {selectedAgents.length > 0 && (
-                  <div className="mt-6 pt-6 border-t border-border">
-                    <p className="text-sm font-semibold mb-2">Selected AI Team:</p>
-                    <ul className="space-y-1">
-                      {selectedAgents.map(agent => (
-                        <li key={agent.id} className="text-xs text-muted-foreground flex items-center gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary" />
-                          {agent.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+              {/* Interactive Options */}
+              {renderStepContent()}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
