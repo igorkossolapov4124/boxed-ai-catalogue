@@ -24,6 +24,8 @@ interface SelectedAgent {
   kpis: string[];
 }
 
+interface AvailableAgent extends SelectedAgent {}
+
 const OnboardingHero = () => {
   const { toast } = useToast();
   const [step, setStep] = useState<Step>('greeting');
@@ -36,7 +38,8 @@ const OnboardingHero = () => {
   ]);
   const [selectedNiche, setSelectedNiche] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
-  const [selectedAgents, setSelectedAgents] = useState<SelectedAgent[]>([]);
+  const [availableAgents, setAvailableAgents] = useState<AvailableAgent[]>([]);
+  const [selectedAgentIds, setSelectedAgentIds] = useState<number[]>([]);
   const [bookingData, setBookingData] = useState({ name: '', email: '', phone: '' });
   const [showCelebration, setShowCelebration] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -86,13 +89,14 @@ const OnboardingHero = () => {
     const department = niche?.departments.find(d => d.name === departmentName);
     
     if (department && department.agents.length > 0) {
-      const recommendedAgents: SelectedAgent[] = department.agents.slice(0, 3).map(agent => ({
+      const agents: AvailableAgent[] = department.agents.slice(0, 3).map(agent => ({
         id: agent.id,
         name: agent.name,
         value: agent.valueProposition,
         kpis: agent.kpis
       }));
-      setSelectedAgents(recommendedAgents);
+      setAvailableAgents(agents);
+      setSelectedAgentIds([]); // Reset selection
     }
 
     setTimeout(() => {
@@ -103,13 +107,12 @@ const OnboardingHero = () => {
     }, 500);
   };
 
-  const handleAgentToggle = (agent: SelectedAgent) => {
-    setSelectedAgents(prev => {
-      const exists = prev.find(a => a.id === agent.id);
-      if (exists) {
-        return prev.filter(a => a.id !== agent.id);
+  const handleAgentToggle = (agentId: number) => {
+    setSelectedAgentIds(prev => {
+      if (prev.includes(agentId)) {
+        return prev.filter(id => id !== agentId);
       }
-      return [...prev, agent];
+      return [...prev, agentId];
     });
   };
 
@@ -203,8 +206,8 @@ const OnboardingHero = () => {
       case 'agents':
         return (
           <div className="space-y-4 mt-4">
-            {selectedAgents.map((agent) => {
-              const isSelected = selectedAgents.some(a => a.id === agent.id);
+            {availableAgents.map((agent) => {
+              const isSelected = selectedAgentIds.includes(agent.id);
               return (
                 <Card
                   key={agent.id}
@@ -216,7 +219,7 @@ const OnboardingHero = () => {
                     <div className="flex items-start justify-between gap-3">
                       <div 
                         className="flex-1 cursor-pointer"
-                        onClick={() => handleAgentToggle(agent)}
+                        onClick={() => handleAgentToggle(agent.id)}
                       >
                         <h4 className="font-semibold text-base mb-2">{agent.name}</h4>
                         <p className="text-sm text-muted-foreground mb-3">{agent.value}</p>
@@ -235,11 +238,14 @@ const OnboardingHero = () => {
                           View Details <ExternalLink className="w-3 h-3" />
                         </Link>
                       </div>
-                      <div className="flex-shrink-0 cursor-pointer" onClick={() => handleAgentToggle(agent)}>
+                      <div 
+                        className="flex-shrink-0 cursor-pointer" 
+                        onClick={() => handleAgentToggle(agent.id)}
+                      >
                         {isSelected ? (
                           <CheckCircle2 className="w-6 h-6 text-primary" />
                         ) : (
-                          <div className="w-6 h-6 rounded-full border-2 border-muted-foreground/30" />
+                          <div className="w-6 h-6 rounded-full border-2 border-muted-foreground/30 hover:border-primary transition-colors" />
                         )}
                       </div>
                     </div>
@@ -251,7 +257,7 @@ const OnboardingHero = () => {
               size="lg" 
               onClick={handleProceedToBooking}
               className="w-full bg-primary hover:bg-primary-dark text-primary-foreground font-medium"
-              disabled={selectedAgents.length === 0}
+              disabled={selectedAgentIds.length === 0}
             >
               Continue to Integration Call
             </Button>
@@ -322,7 +328,7 @@ const OnboardingHero = () => {
   const milestones = [
     { id: 'niche', label: 'Business Field', icon: Building2, completed: !!selectedNiche },
     { id: 'role', label: 'Role to Empower', icon: Users, completed: !!selectedRole },
-    { id: 'agents', label: 'AI Team Members', icon: Bot, completed: selectedAgents.length > 0 },
+    { id: 'agents', label: 'AI Team Members', icon: Bot, completed: selectedAgentIds.length > 0 },
     { id: 'booking', label: 'Integration Call', icon: Calendar, completed: step === 'booking' && bookingData.name !== '' }
   ];
 
