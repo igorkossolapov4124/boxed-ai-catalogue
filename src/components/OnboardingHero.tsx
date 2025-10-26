@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { niches, iconMap } from '@/data/niches';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 type Step = 'greeting' | 'niche' | 'role' | 'agents' | 'booking';
@@ -195,27 +195,40 @@ const OnboardingHero = () => {
               return (
                 <Card
                   key={agent.id}
-                  className={`border transition-all cursor-pointer ${
+                  className={`border transition-all ${
                     isSelected ? 'border-primary bg-accent' : 'border-border hover:border-primary'
                   }`}
-                  onClick={() => handleAgentToggle(agent)}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1">
+                      <div 
+                        className="flex-1 cursor-pointer"
+                        onClick={() => handleAgentToggle(agent)}
+                      >
                         <h4 className="font-semibold text-base mb-2">{agent.name}</h4>
                         <p className="text-sm text-muted-foreground mb-3">{agent.value}</p>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mb-3">
                           {agent.kpis.map((kpi, idx) => (
                             <Badge key={idx} variant="secondary" className="text-xs">
                               {kpi}
                             </Badge>
                           ))}
                         </div>
+                        <Link 
+                          to={`/agent/${agent.id}`}
+                          className="text-xs text-primary hover:underline flex items-center gap-1 w-fit"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View Details <ExternalLink className="w-3 h-3" />
+                        </Link>
                       </div>
-                      {isSelected && (
-                        <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                      )}
+                      <div className="flex-shrink-0 cursor-pointer" onClick={() => handleAgentToggle(agent)}>
+                        {isSelected ? (
+                          <CheckCircle2 className="w-6 h-6 text-primary" />
+                        ) : (
+                          <div className="w-6 h-6 rounded-full border-2 border-muted-foreground/30" />
+                        )}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
