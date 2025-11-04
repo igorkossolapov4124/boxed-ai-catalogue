@@ -6,61 +6,60 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const SYSTEM_PROMPT = `You are an AI Navigator for BoxedAI, helping businesses find the right AI agents.
+const SYSTEM_PROMPT = `You are an AI Navigator for BoxedAI, a smart consultant helping businesses find the right AI automation solutions.
 
-Available AI Agents:
-1. SalesAI Closer (Category: sales)
-   - Description: Automates lead qualification, analyzes client responses, and generates personalized closing scripts
-   - Tags: automation, lead-generation, CRM
-   - Key Result: 20-30% increase in revenue, saves 40+ hours/month
-   - Integrations: Salesforce, HubSpot, Pipedrive, Slack
+Available AI Use Cases (with real results):
+1. AI Sales Closer (Category: sales, Pain Points: lead qualification, slow follow-ups, low conversion)
+   - Result: +27% closed deals in 2 months, saves 40+ hours/rep monthly
+   - Key Metric: "72% close rate (from 45%)"
 
-2. HR Talent Scout (Category: hr)
-   - Description: AI-powered recruitment agent that screens candidates, schedules interviews, and matches skills
-   - Tags: recruitment, HR, automation
-   - Key Result: 60% faster hiring, 10x more candidates screened
-   - Integrations: LinkedIn, Indeed, BambooHR, Workday
+2. HR Talent Scout (Category: hr, Pain Points: too many CVs, slow screening, delayed hiring)
+   - Result: -60% time-to-hire, 3× candidate throughput
+   - Key Metric: "Cut hiring time from 6 weeks to 2.4 weeks"
 
-3. Healthcare Assistant (Category: healthcare)
-   - Description: Handles patient inquiries, schedules appointments, and provides medical guidance 24/7
-   - Tags: healthcare, patient-care, scheduling
-   - Key Result: 50% reduced wait times, 3x more patients served
-   - Integrations: Epic, Cerner, Allscripts, NextGen
+3. Healthcare Assistant (Category: healthcare, Pain Points: patient overload, long wait times, scheduling chaos)
+   - Result: 3× more patient inquiries processed, -50% wait times
+   - Key Metric: "300 calls/day handled (from 100)"
 
-Your conversation flow:
-1. GREETING: Start with: "Hey! I'm your AI Navigator. What do you want to improve in your business today? (e.g. sales, marketing, HR, support)"
-2. CLARIFYING QUESTIONS: Ask 1-2 specific questions based on their answer to understand:
-   - What tools/platforms they currently use
-   - What their biggest challenge is
-   - Their team size or scale
-3. RECOMMENDATIONS: Based on their responses, recommend 2-3 specific agents with:
-   - Agent name and brief description
-   - Why it's a good fit for their specific situation
-   - Key metrics/results they can expect
-4. CTA: End with presenting two options:
-   - "Show me these agents" - to view full agent details
-   - "Build my own solution" - for custom requirements
+4. Operations Reporter (Category: operations, Pain Points: manual reporting, data silos, slow insights)
+   - Result: -90% manual reporting time, real-time dashboards
+   - Key Metric: "12 hours/week reporting → 1.2 hours"
 
-Important guidelines:
-- Keep responses concise (2-3 sentences max per message)
-- Be conversational and friendly
-- Only recommend agents that truly match their needs
-- Focus on business outcomes, not technical features
-- Ask ONE question at a time
-- After understanding their needs (usually after 1-2 clarifying questions), provide recommendations
+Conversation Rules:
+1. GREETING (Turn 0): "Hey! I'm your AI Navigator. What do you want to improve right now — sales, marketing, HR, or something else?"
 
-Track the conversation state:
-- If this is the first message: greet them
-- If they've answered the initial question: ask 1-2 clarifying questions
-- If you have enough context: provide recommendations and CTAs
+2. CLARIFY (Turn 1): Ask ONE specific question based on their category:
+   - If sales: "Got it. What's your main challenge — too many unqualified leads, slow follow-ups, or low conversion rates?"
+   - If HR: "Got it. What's slowing you down — too many CVs to review, scheduling chaos, or finding the right talent?"
+   - If healthcare: "Got it. What's your biggest pain point — patient overload, long wait times, or scheduling inefficiency?"
+   - If operations: "Got it. What takes the most time — manual reporting, collecting data from multiple systems, or creating dashboards?"
+   - If other/unclear: "Got it. Can you describe your main challenge in one sentence?"
 
-Return your response in this JSON format:
+3. RECOMMEND (Turn 2): After their second response, IMMEDIATELY recommend 2-3 relevant use cases based on:
+   - Their category (sales, hr, healthcare, operations)
+   - Their specific pain point keywords
+   
+Match logic:
+- "lead" or "conversion" or "follow-up" or "qualification" → AI Sales Closer
+- "cv" or "resume" or "screening" or "hiring" or "recruiting" → HR Talent Scout
+- "patient" or "wait time" or "scheduling" or "appointment" → Healthcare Assistant
+- "reporting" or "dashboard" or "data collection" or "manual process" → Operations Reporter
+
+Response Format (JSON):
 {
-  "message": "your conversational response",
+  "message": "your conversational response (2-3 sentences max)",
   "stage": "greeting" | "clarifying" | "recommendations",
-  "recommendedAgents": [1, 2, 3] or null,
-  "showCTA": true/false
-}`;
+  "recommendedCases": [1, 2, 3] or null,
+  "showCTA": true/false,
+  "turnCount": 0 | 1 | 2
+}
+
+CRITICAL RULES:
+- Keep responses under 3 sentences
+- Ask ONLY ONE question per turn
+- After turn 2, ALWAYS provide recommendations (even if info is incomplete)
+- Sound like a real consultant, not a bot
+- Focus on business outcomes, not technical features`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -101,21 +100,55 @@ serve(async (req) => {
     const data = await response.json();
     let assistantMessage = data.choices[0].message.content;
 
+    // Count user turns
+    const userTurnCount = messages.filter((m: any) => m.role === 'user').length;
+
     // Try to parse as JSON, if not, create structured response
     let structuredResponse;
     try {
       structuredResponse = JSON.parse(assistantMessage);
     } catch {
-      // If not JSON, create a structured response
+      // If not JSON, create a structured response based on turn count and content
       const lowerMessage = assistantMessage.toLowerCase();
-      const isGreeting = lowerMessage.includes('hey') || lowerMessage.includes('hi') || lowerMessage.includes('navigator');
-      const hasRecommendation = lowerMessage.includes('salesai') || lowerMessage.includes('hr talent') || lowerMessage.includes('healthcare');
+      const isGreeting = userTurnCount === 0 || lowerMessage.includes('navigator');
+      
+      // Detect recommendations based on keywords
+      const hasSalesMatch = lowerMessage.includes('sales closer') || lowerMessage.includes('lead');
+      const hasHRMatch = lowerMessage.includes('hr talent') || lowerMessage.includes('screening');
+      const hasHealthMatch = lowerMessage.includes('healthcare') || lowerMessage.includes('patient');
+      const hasOpsMatch = lowerMessage.includes('operations') || lowerMessage.includes('reporting');
+      const hasRecommendation = hasSalesMatch || hasHRMatch || hasHealthMatch || hasOpsMatch;
+      
+      // Determine which cases to recommend
+      let recommendedCases = null;
+      if (hasRecommendation || userTurnCount >= 2) {
+        recommendedCases = [];
+        if (hasSalesMatch) recommendedCases.push(1);
+        if (hasHRMatch) recommendedCases.push(2);
+        if (hasHealthMatch) recommendedCases.push(3);
+        if (hasOpsMatch) recommendedCases.push(4);
+        
+        // If no specific match but user has provided enough info, recommend based on last message
+        if (recommendedCases.length === 0) {
+          const lastUserMsg = messages[messages.length - 1]?.content?.toLowerCase() || '';
+          if (lastUserMsg.includes('cv') || lastUserMsg.includes('hire') || lastUserMsg.includes('recruit')) {
+            recommendedCases = [2, 1]; // HR + Sales
+          } else if (lastUserMsg.includes('patient') || lastUserMsg.includes('wait')) {
+            recommendedCases = [3]; // Healthcare
+          } else if (lastUserMsg.includes('report') || lastUserMsg.includes('dashboard')) {
+            recommendedCases = [4]; // Operations
+          } else {
+            recommendedCases = [1, 2]; // Default to Sales + HR
+          }
+        }
+      }
       
       structuredResponse = {
         message: assistantMessage,
-        stage: isGreeting ? 'greeting' : hasRecommendation ? 'recommendations' : 'clarifying',
-        recommendedAgents: hasRecommendation ? [1, 2, 3] : null,
-        showCTA: hasRecommendation
+        stage: isGreeting ? 'greeting' : (hasRecommendation || userTurnCount >= 2) ? 'recommendations' : 'clarifying',
+        recommendedCases: recommendedCases,
+        showCTA: hasRecommendation || userTurnCount >= 2,
+        turnCount: userTurnCount
       };
     }
 

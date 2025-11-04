@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Send, Sparkles, ArrowRight } from 'lucide-react';
+import { Send, Sparkles, ArrowRight, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { agents } from '@/data/agents';
+import { ideas } from '@/data/ideas';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Message {
@@ -15,8 +15,9 @@ interface Message {
 interface ChatResponse {
   message: string;
   stage: 'greeting' | 'clarifying' | 'recommendations' | 'error';
-  recommendedAgents: number[] | null;
+  recommendedCases: number[] | null;
   showCTA: boolean;
+  turnCount?: number;
 }
 
 const HeroChat = () => {
@@ -24,9 +25,11 @@ const HeroChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [recommendedAgents, setRecommendedAgents] = useState<number[]>([]);
+  const [recommendedCases, setRecommendedCases] = useState<number[]>([]);
   const [showCTA, setShowCTA] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [userTurnCount, setUserTurnCount] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -35,7 +38,7 @@ const HeroChat = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isAnalyzing]);
 
   useEffect(() => {
     // Initial greeting
@@ -44,7 +47,7 @@ const HeroChat = () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       setMessages([{
         role: 'assistant',
-        content: "Hey! I'm your AI Navigator. What do you want to improve in your business today? (e.g. sales, marketing, HR, support)"
+        content: "Hey! I'm your AI Navigator. What do you want to improve right now — sales, marketing, HR, or something else?"
       }]);
       setIsTyping(false);
     };
@@ -59,9 +62,20 @@ const HeroChat = () => {
     setMessages(newMessages);
     setInput('');
     setIsLoading(true);
-    setIsTyping(true);
+    setUserTurnCount(prev => prev + 1);
+    
+    const currentTurnCount = userTurnCount + 1;
 
     try {
+      // Show analyzing animation after the second user message
+      if (currentTurnCount >= 2) {
+        setIsAnalyzing(true);
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        setIsAnalyzing(false);
+      }
+
+      setIsTyping(true);
+
       const { data, error } = await supabase.functions.invoke('hero-chat', {
         body: { 
           messages: newMessages.map(m => ({ role: m.role, content: m.content }))
@@ -73,15 +87,15 @@ const HeroChat = () => {
       const response: ChatResponse = data;
       
       // Simulate typing delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise(resolve => setTimeout(resolve, 600));
       
       setMessages([...newMessages, {
         role: 'assistant',
         content: response.message
       }]);
 
-      if (response.recommendedAgents && response.recommendedAgents.length > 0) {
-        setRecommendedAgents(response.recommendedAgents);
+      if (response.recommendedCases && response.recommendedCases.length > 0) {
+        setRecommendedCases(response.recommendedCases);
       }
       
       if (response.showCTA) {
@@ -107,9 +121,9 @@ const HeroChat = () => {
     }
   };
 
-  const getRecommendedAgentData = () => {
-    return recommendedAgents
-      .map(id => agents.find(a => a.id === id))
+  const getRecommendedCaseData = () => {
+    return recommendedCases
+      .map(id => ideas.find(i => i.id === id))
       .filter(Boolean)
       .slice(0, 3);
   };
@@ -126,7 +140,7 @@ const HeroChat = () => {
             </h1>
           </div>
           <p className="text-muted-foreground text-lg">
-            A guided conversation to find the perfect AI agents for your business
+            Tell us your challenge, and we'll show you real solutions in 60 seconds
           </p>
         </div>
 
@@ -153,7 +167,27 @@ const HeroChat = () => {
               </div>
             ))}
             
-            {isTyping && (
+            {/* Analyzing Animation */}
+            {isAnalyzing && (
+              <div className="flex justify-center items-center py-6 animate-fade-in">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-primary animate-pulse" />
+                    <span className="text-sm font-medium text-primary">
+                      Analyzing 200+ AI use cases
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Typing Indicator */}
+            {isTyping && !isAnalyzing && (
               <div className="flex justify-start animate-fade-in">
                 <div className="bg-muted/50 rounded-2xl px-4 py-3">
                   <div className="flex gap-1">
@@ -175,7 +209,7 @@ const HeroChat = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
+                placeholder="Type your answer..."
                 disabled={isLoading}
                 className="flex-1 bg-background border-primary/20 focus:border-primary"
               />
@@ -191,24 +225,50 @@ const HeroChat = () => {
           </div>
         </Card>
 
-        {/* Recommended Agents */}
-        {recommendedAgents.length > 0 && (
+        {/* Recommended Case Cards */}
+        {recommendedCases.length > 0 && (
           <div className="mt-8 space-y-4 animate-fade-in">
-            <h3 className="text-xl font-semibold text-center">Recommended for You</h3>
+            <h3 className="text-xl font-semibold text-center">Here's what we found for you</h3>
             <div className="grid md:grid-cols-3 gap-4">
-              {getRecommendedAgentData().map((agent) => (
+              {getRecommendedCaseData().map((idea) => (
                 <Card
-                  key={agent.id}
-                  className="p-4 hover:shadow-lg transition-all cursor-pointer hover:scale-105 border-primary/20"
-                  onClick={() => navigate(`/agent/${agent.id}`)}
+                  key={idea.id}
+                  className="group p-5 hover:shadow-xl transition-all cursor-pointer hover:scale-105 border-primary/20 bg-background/80 backdrop-blur-sm"
+                  onClick={() => navigate(`/idea/${idea.slug}`)}
                 >
-                  <div className="text-3xl mb-2">{agent.icon}</div>
-                  <h4 className="font-semibold mb-1">{agent.name}</h4>
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                    {agent.description}
-                  </p>
-                  <div className="text-xs text-primary font-medium">
-                    {agent.valueProposition}
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-base mb-1 group-hover:text-primary transition-colors">
+                        {idea.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
+                        {idea.description}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-primary/5 rounded-lg p-3 mb-3">
+                    <p className="text-xs font-medium text-primary">
+                      {idea.outcome}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {idea.caseStudy.keyMetrics.slice(0, 2).map((metric, i) => (
+                      <span key={i} className="text-xs bg-muted/50 px-2 py-1 rounded">
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-primary/10 flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      View case study
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Card>
               ))}
@@ -222,9 +282,9 @@ const HeroChat = () => {
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-              onClick={() => navigate('/marketplace')}
+              onClick={() => navigate('/ideas')}
             >
-              Show me these agents
+              Explore more solutions
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
             <Button
