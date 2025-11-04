@@ -1,1 +1,4 @@
 project_id = "kxublcqdpijnxlbbgugn"
+
+[functions.hero-chat]
+verify_jwt = false

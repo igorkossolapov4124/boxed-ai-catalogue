@@ -1,9 +1,9 @@
-import OnboardingHero from '@/components/OnboardingHero';
+import HeroChat from '@/components/HeroChat';
 
 const Landing = () => {
   return (
     <div className="min-h-screen bg-background">
-      <OnboardingHero />
+      <HeroChat />
     </div>
   );
 };
